@@ -100,7 +100,7 @@ class Solution3:
 # 4: 移动元素
 class Solution4:
     def searchMatrix(self, matrix, target):
-        # an empty matrix obviously does not contain `target` (make this check
+        # an empty meatrix obviously does not contain `target` (make this check
         # because we want to cache `width` for efficiency's sake)
         if len(matrix) == 0 or len(matrix[0]) == 0:
             return False
