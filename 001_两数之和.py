@@ -37,3 +37,15 @@ class Solution1(object):
                     return [i, j]
                 j += 1
         return None
+
+class Solution2:
+    def twoSum(self, nums, target):
+        data_dict = dict()
+        for i, element in enumerate(nums):
+            if target - element in data_dict:
+                return [data_dict[target-element], i]
+            data_dict[element] = i
+
+
+a = Solution2()
+print(a.twoSum([1,2,3], 3))
