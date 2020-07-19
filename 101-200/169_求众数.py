@@ -61,3 +61,19 @@ class Solution4:
             count += (1 if num == candidate else -1)
 
         return candidate
+
+
+# 2020.7.19 重温投票法
+
+class Solution5:
+    def majorityElement(self, nums):
+        count = 0
+        candidate = None
+
+
+        for num in nums:
+            if count == 0:
+                candidate = num
+            count += (1 if num == candidate else -1)
+
+        return candidate
