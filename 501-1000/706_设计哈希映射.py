@@ -118,7 +118,7 @@ class MyHashMap1:
         """
         Initialize your data structure here.
         """
-        self.m = 1000;
+        self.m = 1000
         self.h = [None]*self.m
         
 
