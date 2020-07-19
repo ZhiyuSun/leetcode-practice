@@ -25,6 +25,7 @@
 
 from typing import List
 
+# DFS
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         def _dfs(i, j):
@@ -48,3 +49,28 @@ class Solution:
                     count += 1
                     _dfs(i, j)
         return count
+
+# BFS
+class Solution1:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        m = len(grid)
+        if m == 0: return 0
+        n = len(grid[0])
+        if n == 0: return 0
+        count = 0
+
+        for i in range(0, m):
+            for j in range(0, n):
+                if grid[i][j] == '1':
+                    count += 1
+                    grid[i][j] = '0'
+                    queue = [(i, j)]
+                    while queue:
+                        row, col = queue.pop(0)
+                        for x, y in [(row - 1, col), (row + 1, col), (row, col - 1), (row, col + 1)]:
+                            if 0 <= x < m and 0 <= y < n and grid[x][y] == "1":
+                                queue.append((x, y))
+                                grid[x][y] = "0"
+        return count
+
+# TODO 并查集的方法
