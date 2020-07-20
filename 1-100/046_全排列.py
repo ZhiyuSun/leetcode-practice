@@ -20,3 +20,28 @@ class Solution:
         res = []
         backtrack()
         return res
+
+
+class Solution1:
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        def backtrack():
+            if len(track) == n:  
+                res.append(track[:])
+                return
+            for i in range(0, n):
+                if nums[i] in track:
+                    continue
+                track.append(nums[i])
+                backtrack()
+                track.remove(nums[i])
+
+        
+        n = len(nums)
+        res = []
+        track = []
+        backtrack()
+        return res
