@@ -46,3 +46,18 @@ class Solution2:
         
         return second
 
+
+# 覃超老师的思路
+# a[i][0,1]: 0: 不偷，1：偷
+# a[i][0] = Max(a[i-1][0], a[i-1][1])
+# a[i][1] = a[i-1][0] + nums[i]
+class Solution3:
+    def rob(self, nums: List[int]) -> int:
+        if not nums: return 0
+        a = [[0,0] for _ in range(len(nums))]
+        a[0][0] = 0
+        a[0][1] = nums[0]
+        for i in range(1, len(nums)):
+            a[i][0] = max(a[i-1][0], a[i-1][1])
+            a[i][1] = a[i-1][0] + nums[i]
+        return max(a[-1][0], a[-1][1])
