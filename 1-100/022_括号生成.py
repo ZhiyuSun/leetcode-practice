@@ -1,3 +1,21 @@
+"""
+数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+
+ 
+
+示例：
+
+输入：n = 3
+输出：[
+       "((()))",
+       "(()())",
+       "(())()",
+       "()(())",
+       "()()()"
+     ]
+
+"""
+
 from typing import List
 
 # 官方解法
@@ -43,3 +61,38 @@ class Solution2:
 
 s = Solution2()
 print(s.generateParenthesis(3))
+
+# 某一天我自己的写法
+class Solution3:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
+        def traceback(i, j, ans):
+            if i > n or j > i: return 
+            if i == n and j == n: 
+                res.append(''.join(ans))
+                return
+            ans.append('(')
+            traceback(i+1, j, ans[:])
+            ans.pop()
+            ans.append(')')
+            traceback(i, j+1, ans[:])
+        
+        traceback(0, 0, [])
+
+
+        return res
+
+# 队列法
+class Solution4:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res, queue = [], []
+        queue.append(('',n,n))
+        while queue:
+            path, left, right = queue.pop(0)
+            if left == right == 0:
+                res.append(path[:])
+                continue
+            if left > 0: queue.append((path+'(', left-1, right))
+            if right > left: queue.append((path+')', left, right-1))
+        return res
+

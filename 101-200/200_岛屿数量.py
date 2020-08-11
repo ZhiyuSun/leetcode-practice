@@ -123,3 +123,50 @@ class Solution2:
                             uf.union(r * nc + c, x * nc + y)
         
         return uf.getCount()
+
+# 某一天我自己居然写出来了
+class Solution3:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        def _dfs(i, j):
+            if i < 0 or j < 0 or i >= height or j >= width or grid[i][j] == "0": return
+            grid[i][j] = "0"
+            _dfs(i+1, j)
+            _dfs(i-1, j)
+            _dfs(i, j+1)
+            _dfs(i, j-1)
+        
+        if not grid or not grid[0]: return 0
+        height = len(grid)
+        width = len(grid[0])
+        res = 0
+        for i in range(height):
+            for j in range(width):
+                if grid[i][j] == "1": 
+                    res += 1
+                    _dfs(i, j)
+        return res
+
+
+# 复习，BFS
+class Solution4:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        m = len(grid)
+        if m == 0: return 0
+        n = len(grid[0])
+        if n == 0: return 0
+        count = 0
+
+
+        for i in range(0, m):
+            for j in range(0, n):
+                if grid[i][j] == '1':
+                    count += 1
+                    grid[i][j] = '0'
+                    queue = [(i, j)]
+                    while queue:
+                        row, col = queue.pop(0)
+                        for x, y in [(row - 1, col), (row + 1, col), (row, col - 1), (row, col + 1)]:
+                            if 0 <= x < m and 0 <= y < n and grid[x][y] == "1":
+                                queue.append((x, y))
+                                grid[x][y] = "0"
+        return count
