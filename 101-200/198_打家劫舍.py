@@ -61,3 +61,16 @@ class Solution3:
             a[i][0] = max(a[i-1][0], a[i-1][1])
             a[i][1] = a[i-1][0] + nums[i]
         return max(a[-1][0], a[-1][1])
+
+
+# 2020.08.12 自己写出来了
+class Solutionself:
+    def rob(self, nums: List[int]) -> int:
+        if not nums: return 0
+        if len(nums) == 1: return nums[0]
+        nums[1] = max(nums[0], nums[1])
+        for i in range(2, len(nums)):
+            nums[i] = max(nums[i-1], nums[i-2]+nums[i])
+        return nums[-1]
+
+# 个人优化版

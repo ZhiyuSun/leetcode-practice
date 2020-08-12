@@ -126,7 +126,7 @@ class Solution5:
             l = len(queue)
 
 
-            for i in range(l):
+            for _ in range(l):
                 cur = queue.pop(0)
                 for j in range(len(nums)):
                     if nums[j] not in cur:
