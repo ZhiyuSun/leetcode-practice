@@ -3,10 +3,9 @@
 
 # Definition for singly-linked list.
 class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
-
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 # 官方解答
 # 递归的思路
@@ -40,3 +39,26 @@ class Solution2:
             cur = node
         cur.next = l1 or l2
         return root.next
+
+# 2020.08.13 我居然自己写出来了
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solutionself:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        res = ListNode()
+        p = res
+        while l1 and l2:
+            if l1.val < l2.val:
+                res.next = l1
+                res = res.next
+                l1 = l1.next
+            else:
+                res.next = l2
+                res = res.next
+                l2 = l2.next
+        if l1: res.next = l1
+        if l2: res.next = l2
+        return p.next

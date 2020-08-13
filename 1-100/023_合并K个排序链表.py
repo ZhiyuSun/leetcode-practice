@@ -53,3 +53,4 @@ class Solution1(object):
             point.next = ListNode(x)
             point = point.next
         return head.next
+
