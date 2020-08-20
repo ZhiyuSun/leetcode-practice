@@ -30,4 +30,52 @@ Click : [3,0]
  ['B', 'B', 'B', 'B', 'B']]
 
 """
+from typing import List
+# 2020.08.20 继续直奔题解
+class Solution:
+    def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
+        dir_x = [0, 1, 0, -1, 1, 1, -1, -1]
+        dir_y = [1, 0, -1, 0, 1, -1, 1, -1]
 
+        def dfs(board, x, y):
+            count = 0
+            for i in range(0, 8):
+                tx = x + dir_x[i]
+                ty = y + dir_y[i]
+                if tx < 0 or tx >= len(board) or ty < 0 or ty >= len(board[0]):
+                    continue
+                if board[tx][ty] == 'M':
+                    count += 1
+            if count > 0:
+                board[x][y] = str(count)
+            else:
+                board[x][y] = 'B'
+                for i in range(0, 8):
+                    tx = x + dir_x[i]
+                    ty = y + dir_y[i]
+                    if tx < 0 or tx >= len(board) or ty < 0 or ty >= len(board[0]) or board[tx][ty] != 'E':
+                        continue
+                    dfs(board, tx, ty)
+
+        x, y = click[0], click[1]
+        if board[x][y] == 'M':
+            board[x][y] = 'X'
+        else:
+            dfs(board, x, y)
+        return board
+
+
+# 超哥版,绝了
+class Solution1:
+    def updateBoard(self, board, click):
+        row, col = click[0], click[1]
+        dirs = ((-1, 0), (1, 0), (0, 1), (0, -1), (-1, 1), (-1, -1), (1, 1), (1, -1))
+        if 0 <= row < len(board) and 0 <= col < len(board[0]):
+            if board[row][col] == 'M':
+                board[row][col] = 'X'
+            elif board[row][col] == 'E':
+                n = sum([board[row + r][col + c] == 'M' for r, c in dirs if 0 <= row + r < len(board) and 0 <= col + c < len(board[0])])
+                board[row][col] = n and str(n) or 'B'
+                for r, c in dirs * (not n): 
+                    self.updateBoard(board, [row + r, col + c])
+        return board
