@@ -56,3 +56,6 @@ class Solution2:
             for j in range(len(triangle[i])):
                 dp[i][j] += min(dp[i+1][j], dp[i+1][j+1])
         return dp[0][0]
+
+# 2020.08.25
+# 重温这道题，两个要点：1 用原数组；2 自下而上
