@@ -14,6 +14,9 @@
        "()()()"
      ]
 
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/generate-parentheses
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
 
 from typing import List
@@ -96,3 +99,19 @@ class Solution4:
             if right > left: queue.append((path+')', left, right-1))
         return res
 
+
+# 2020.08.27
+class Solutionmy:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def backtrace(left, right, cur):
+            if left == 0 and right == 0:
+                res.append(cur)
+                return
+            if left > 0:
+                backtrace(left-1, right, cur+'(')
+            if left < right:
+                backtrace(left, right-1, cur+')')
+
+        res = []
+        backtrace(n, n, '')
+        return res
