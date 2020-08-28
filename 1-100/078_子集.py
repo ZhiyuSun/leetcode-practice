@@ -17,13 +17,16 @@
   [1,2],
   []
 ]
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/subsets
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
 
 from typing import List
 
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        n = len(nums)
         output = [[]]
         
         for num in nums:
@@ -51,3 +54,5 @@ class Solution2:
         for k in range(n + 1):
             backtrack()
         return output
+
+# 2020.08.28 惨败，还是不会
