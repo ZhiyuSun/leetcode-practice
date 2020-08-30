@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 
 class Solution(object):
     def sortArray(self, nums):
@@ -125,9 +123,9 @@ class Solution(object):
         return self.quicksort2(left) + middle + self.quicksort2(right)
 
 s = Solution()
-print s.bubble_sort([1,3,4,6,2,8,0])
-print s.selection_sort([1,3,4,6,2,8,0])
-print s.heap_sort([1,3,4,6,2,8,0])
-print s.quicksort2([1,3,4,6,2,8,0])
+print(s.bubble_sort([1,3,4,6,2,8,0]))
+print(s.selection_sort([1,3,4,6,2,8,0]))
+print(s.heap_sort([1,3,4,6,2,8,0])
+print(s.quicksort2([1,3,4,6,2,8,0]))
 
 
