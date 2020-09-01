@@ -32,3 +32,17 @@ class Solution:
             p = p.next
             q = q.next.next
         return True
+
+# 220.09.01
+# 哈希表的方法
+class Solution1:
+    def hasCycle(self, head: ListNode) -> bool:
+        if not head or not head.next: return False
+        visited = set()
+        node = head
+        while node:
+            if node in visited:
+                return True
+            visited.add(node)
+            node = node.next
+        return False
