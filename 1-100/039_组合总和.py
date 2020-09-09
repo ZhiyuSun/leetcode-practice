@@ -80,6 +80,7 @@ class Solution1:
             return
 
 
+
         for index in range(begin, size):
             residue = target - candidates[index]
             # “剪枝”操作，不必递归到下一层，并且后面的分支也不必执行
@@ -90,3 +91,49 @@ class Solution1:
             self.__dfs(candidates, index, size, path, res, residue)
             path.pop()
 
+# 2020.09.09 在我的生日这一天，我居然自己写出来了
+class Solutionmy:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        def _backtrack(target, cur, index):
+            if target == 0:
+                res.append(cur[:])
+            for i in range(index, len(candidates)):
+                if target - candidates[i] >= 0:
+                    _backtrack(target-candidates[i], cur + [candidates[i]], i)
+
+        res = []
+        _backtrack(target, [], 0)
+        return res
+
+# 另一种写法
+class Solution2:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        def _backtrack(target, cur, index):
+            if target == 0:
+                res.append(cur[:])
+            for i in range(index, len(candidates)):
+                if target - candidates[i] >= 0:
+                    cur.append(candidates[i])
+                    _backtrack(target-candidates[i], cur, i)
+                    cur.pop()
+        res = []
+        _backtrack(target, [], 0)
+        return res
+
+# 再优化，剪枝
+class Solutionmy2:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        def _backtrack(target, cur, index):
+            if target == 0:
+                res.append(cur[:])
+            for i in range(index, len(candidates)):
+                residue =  target - candidates[i]
+                if residue < 0:
+                    break
+                cur.append(candidates[i])
+                _backtrack(target-candidates[i], cur, i)
+                cur.pop()
+        res = []
+        candidates.sort()
+        _backtrack(target, [], 0)
+        return res
