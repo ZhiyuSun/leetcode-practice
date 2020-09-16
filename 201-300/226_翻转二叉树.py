@@ -20,3 +20,4 @@ class Solution(object):
             self.invertTree(root.right)
         return root
             
+# 2020.09.16 被曾经的自己惊艳了
