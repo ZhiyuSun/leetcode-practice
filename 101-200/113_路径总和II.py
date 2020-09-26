@@ -24,3 +24,27 @@
 链接：https://leetcode-cn.com/problems/path-sum-ii
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+# 2020.9.26 调试了三番五次，依靠自己的力量做出来了 
+from typing import List
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        def _dfs(node, cur, path):
+            if not node.left and not node.right and cur == sum:
+                res.append(path[:])
+            if node.left:
+                _dfs(node.left, cur+node.left.val, path + [node.left.val])
+            if node.right:
+                _dfs(node.right, cur+node.right.val, path + [node.right.val])
+        if not root:
+            return []
+        res = []
+        _dfs(root, root.val, [root.val])
+        return res

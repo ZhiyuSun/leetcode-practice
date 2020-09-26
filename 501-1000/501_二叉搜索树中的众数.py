@@ -13,6 +13,7 @@
 """
 from typing import List
 
+# 2020.9.2 直奔题解，但感觉没发挥出二叉搜索树的优势
 class TreeNode:
     def __init__(self, x):
         self.val = x
