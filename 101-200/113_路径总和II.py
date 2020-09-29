@@ -48,3 +48,22 @@ class Solution:
         res = []
         _dfs(root, root.val, [root.val])
         return res
+
+
+# 2020.9.29 补充BFS的写法
+
+class Solution2:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        if not root: return []
+        queue = [(sum-root.val, [root])]
+        res = []
+        while queue:
+            left, cur = queue.pop(0)
+            if left == 0 and not cur[-1].left and not cur[-1].right:
+                res.append([item.val for item in cur])
+            if cur[-1].left:
+                queue.append((left-cur[-1].left.val, cur + [cur[-1].left]))
+            if cur[-1].right:
+                queue.append((left-cur[-1].right.val, cur + [cur[-1].right]))
+        return res
+            
