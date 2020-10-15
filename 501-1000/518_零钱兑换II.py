@@ -26,3 +26,19 @@
 链接：https://leetcode-cn.com/problems/coin-change-2
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+
+# 2020.10.15 老是不练生疏了，直奔题解
+from typing import List
+
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = [0] * (amount + 1)
+        dp[0] = 1
+        
+        for coin in coins:
+            for x in range(coin, amount + 1):
+                dp[x] += dp[x - coin]
+        return dp[amount]
+
+# 小结：
+# 一开始想用回溯，没想到这还是动态规划
