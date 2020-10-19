@@ -26,3 +26,17 @@ class Solution1:
                 res.append(tmp.val)
                 root = tmp.right
         return res
+
+
+# 2020.9.14 补充递归法
+class Solutiondg:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        def _inorder(node):
+            if not node: return
+            _inorder(node.left)
+            res.append(node.val)
+            _inorder(node.right)
+
+        res = []
+        _inorder(root)
+        return res

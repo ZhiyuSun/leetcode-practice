@@ -195,3 +195,22 @@ class Solutionmynew:
 
 # 总结，可采用 new_cur = cur + [nums[i]] 去做append并生成新的数组，
 # 可使用 new_nums = nums[0:i] + nums[i+1:] 去删除其中的一个元素
+
+
+# 2020.9.18 已经能自如的使用回溯法
+class Solution918:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def _backtrace(sol):
+            if len(sol) == len(nums):
+                res.append(sol[:])
+            for i in range(len(nums)):
+                if used[i] == 1:
+                    continue
+                used[i] = 1
+                _backtrace(sol + [nums[i]])
+                used[i] = 0    
+
+        res = []
+        used = [0] * len(nums)
+        _backtrace([])
+        return res

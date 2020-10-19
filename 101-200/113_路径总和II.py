@@ -24,3 +24,46 @@
 链接：https://leetcode-cn.com/problems/path-sum-ii
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+# 2020.9.26 调试了三番五次，依靠自己的力量做出来了 
+from typing import List
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        def _dfs(node, cur, path):
+            if not node.left and not node.right and cur == sum:
+                res.append(path[:])
+            if node.left:
+                _dfs(node.left, cur+node.left.val, path + [node.left.val])
+            if node.right:
+                _dfs(node.right, cur+node.right.val, path + [node.right.val])
+        if not root:
+            return []
+        res = []
+        _dfs(root, root.val, [root.val])
+        return res
+
+
+# 2020.9.29 补充BFS的写法
+
+class Solution2:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        if not root: return []
+        queue = [(sum-root.val, [root])]
+        res = []
+        while queue:
+            left, cur = queue.pop(0)
+            if left == 0 and not cur[-1].left and not cur[-1].right:
+                res.append([item.val for item in cur])
+            if cur[-1].left:
+                queue.append((left-cur[-1].left.val, cur + [cur[-1].left]))
+            if cur[-1].right:
+                queue.append((left-cur[-1].right.val, cur + [cur[-1].right]))
+        return res
+            

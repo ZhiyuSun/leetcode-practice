@@ -19,7 +19,7 @@
 解释: 它可以解码为 "BZ" (2 26), "VF" (22 6), 或者 "BBF" (2 2 6) 。
 
 """
-
+from functools import lru_cache
 class Solution:
     def numDecodings(self, s: str) -> int:
         dp = [0] * len(s)
@@ -101,7 +101,6 @@ class Solution3:
                 dp[i] += dp[i - 2]
         return dp[-1]
 
-
 # 2020.08.30 一开始还是没做出来，然后偷偷看了之前的解答
 # 经验就是如果是0就跟前面的一样，如果和前面组成两位数，就再加上i-2的值
 class Solutionmy:
@@ -124,3 +123,15 @@ class Solutionmy:
             if 10 <= int(s[i-1] + s[i]) <= 26:
                 dp[i] += dp[i-2]
         return dp[-1]
+
+# 2020.09.03 超哥的解法
+class Solutionc:
+    @lru_cache(None)
+    def numDecodings(self, s: str) -> int:
+        if len(s) == 0: return 1
+        cnt = 0
+        if s[0] != '0':
+            cnt += self.numDecodings(s[1:])
+        if 10 <=int(s[0:2])<=26:
+            cnt += self.numDecodings(s[2:])
+        return cnt
