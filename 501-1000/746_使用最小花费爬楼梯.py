@@ -20,3 +20,34 @@
 链接：https://leetcode-cn.com/problems/min-cost-climbing-stairs
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+
+# 2020.10.22 先用的动态规划实现，但是失败了，很挫败
+from typing import List
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        dp = [0] * len(cost)
+        dp[0] = cost[0]
+        dp[1] = cost[1]
+        for i in range(2, len(cost)):
+            dp[i] = min(dp[i-1], dp[i-2]+cost[i])
+        return dp[-1]
+
+# 动态规划，从后往前
+class Solution2:
+    def minCostClimbingStairs(self, cost):
+        f1 = f2 = 0
+        for x in reversed(cost):
+            f1, f2 = x + min(f1, f2), f1
+        return min(f1, f2)
+
+# 我好笨，受打击了
+
+# 花了一个小时，把这道题给重新做了
+class Solution3:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        dp = [0] * len(cost)
+        dp[0] = cost[0]
+        dp[1] = cost[1]
+        for i in range(2, len(cost)):
+            dp[i] = min(dp[i-1], dp[i-2]) + cost[i]
+        return min(dp[-1], dp[-2])
