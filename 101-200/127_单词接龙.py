@@ -71,3 +71,8 @@ class Solution1:
             if len(back) < len(front):
                 front, back = back, front
         return 0
+
+# 2020.08.30
+# 这道题做的时候还是不会
+# 如果用队列，记得把每次的步长加到队列里
+# 如果用双向，记得用集合，然后步长在循环完每次的集合后再加
