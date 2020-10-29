@@ -1,11 +1,17 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+"""
+反转一个单链表。
+
+示例:
+
+输入: 1->2->3->4->5->NULL
+输出: 5->4->3->2->1->NULL
+"""
 
 # Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 class Solution(object):
     def reverseList(self, head):
@@ -22,3 +28,11 @@ class Solution(object):
             curr = temp
         return prev
             
+
+class Solution1:
+    def reverseList(self, head: ListNode) -> ListNode:
+        if not head or not head.next: return head
+        last = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        return last
