@@ -27,3 +27,38 @@ rabbbit
 链接：https://leetcode-cn.com/problems/distinct-subsequences
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+
+# 2020.11.2 回溯，但是会超时
+class Solution:
+    def numDistinct(self, s: str, t: str) -> int:
+        def backtrace(n, cur):
+            if cur == t:
+                res[0] += 1
+                return
+            if n == len(s):
+                return
+            if t.startswith(cur):
+                for i in range(n, len(s)):
+                    backtrace(i+1, cur + s[i])
+            
+        res = [0]
+        backtrace(0, '')
+        return res[0]
+
+
+# 2020.11.3 抄的别人的答案，坑爹的转移方程
+class Solution1:
+    def numDistinct(self, s: str, t: str) -> int:
+        dp = [[0]*(len(s) +1) for _ in range(len(t)+1)]
+
+        for i in range(len(s)+1):
+            dp[0][i] = 1
+
+        for i in range(1,len(t)+1):
+            for j in range(1,len(s)+1):
+                if t[i-1] == s[j-1]:
+                    dp[i][j] = dp[i-1][j-1] + dp[i][j-1]
+                else:
+                    dp[i][j] = dp[i][j-1]
+        
+        return dp[-1][-1]
