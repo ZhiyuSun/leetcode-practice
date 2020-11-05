@@ -12,6 +12,7 @@ A[i] > A[i+1] > ... > A[A.length - 1]
 # 2020.11.4 简单题都要直奔题解，我TM真是太菜了
 
 # 解法1：线性扫描
+from typing import List
 class Solution(object):
     def validMountainArray(self, A):
         N = len(A)
