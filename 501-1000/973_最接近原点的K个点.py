@@ -21,3 +21,26 @@
 链接：https://leetcode-cn.com/problems/k-closest-points-to-origin
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+# 2020.11.09 我真是越来越没用了，垃圾
+from typing import List
+import heapq
+# 方法1：排序
+class Solution:
+    def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
+        points.sort(key=lambda x: (x[0] ** 2 + x[1] ** 2))
+        return points[:K]
+
+# 方法2：优先队列
+class Solution1:
+    def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
+        q = [(-x ** 2 - y ** 2, i) for i, (x, y) in enumerate(points[:K])]
+        heapq.heapify(q)
+        
+        n = len(points)
+        for i in range(K, n):
+            x, y = points[i]
+            dist = -x ** 2 - y ** 2
+            heapq.heappushpop(q, (dist, i))
+        
+        ans = [points[identity] for (_, identity) in q]
+        return ans
