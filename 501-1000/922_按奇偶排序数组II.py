@@ -17,3 +17,16 @@
 链接：https://leetcode-cn.com/problems/sort-array-by-parity-ii
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+# 2020.11.12 我真是越来越菜，这种题目都要看题解
+from typing import List
+class Solution:
+    def sortArrayByParityII(self, A: List[int]) -> List[int]:
+        n = len(A)
+        j = 1
+        for i in range(0, n, 2):
+            if A[i] % 2 == 1:
+                while A[j] % 2== 1:
+                    j += 2
+                A[i], A[j] = A[j], A[i]
+
+        return A
