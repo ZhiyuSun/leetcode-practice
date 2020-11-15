@@ -115,3 +115,36 @@ class Solutionmy:
         res = []
         backtrace(n, n, '')
         return res
+
+
+# 2020.11.15 用递归的方法，顺利写出来了，但其实多用了一些变量
+class Solution5:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def _dfs(left_num, right_num, left_count, right_count, cur):
+            if left_num == 0 and right_num == 0:
+                res.append(cur)
+                return
+            if left_num > 0:
+                _dfs(left_num-1, right_num, left_count+1, right_count, cur+"(")
+            if right_num > left_num:
+                _dfs(left_num, right_num-1, left_count, right_count+1, cur+")")
+        
+        res = []
+        _dfs(n, n, 0, 0, "")
+        return res
+
+# 优化版
+class Solution6:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def _dfs(left_num, right_num, cur):
+            if left_num == 0 and right_num == 0:
+                res.append(cur)
+                return
+            if left_num > 0:
+                _dfs(left_num-1, right_num, cur+"(")
+            if right_num > left_num:
+                _dfs(left_num, right_num-1, cur+")")
+        
+        res = []
+        _dfs(n, n, "")
+        return res
