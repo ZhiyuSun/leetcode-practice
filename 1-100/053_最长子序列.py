@@ -8,6 +8,8 @@
 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
 
 """
+
+# 2020.11.24 复习一下
 from typing import List
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:

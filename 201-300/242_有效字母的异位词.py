@@ -62,3 +62,22 @@ class Solution5:
         for i in se:
             if s.count(i) != t.count(i):return False
         return True
+
+
+# 2020.11.24 重做本题，还是觉得自己垃圾
+from collections import defaultdict
+class Solution6:
+    def isAnagram(self, s: str, t: str) -> bool:
+        ch_map = defaultdict(int)
+        for i in s:
+            ch_map[i] += 1
+        for j in t:
+            if j not in ch_map:
+                return False
+            ch_map[j] -= 1
+            if ch_map[j] < 0:
+                return False
+        for k in ch_map:
+            if ch_map[k] > 0:
+                return False
+        return True

@@ -33,3 +33,25 @@ class Solution1:
                 nums[i], nums[j] = nums[j], nums[i]
                 i += 1
         return nums
+
+
+# 2020.11.24 花了三天，终于写出来了，一雪前耻。
+# 最巧妙的还是上一个方法
+class Solution2:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        if not nums or len(nums) == 1:
+            return nums
+        i, j = 0, 1
+        while j < len(nums) and i < len(nums):
+            if nums[i] == 0:
+                if nums[j] != 0:
+                    nums[i], nums[j] = nums[j], nums[i]
+                else:
+                    j += 1
+            else:
+                i += 1
+                j += 1
+        return nums
