@@ -53,7 +53,7 @@ class Solution:
         return True
 
 # 官方解法。思路一样，但是精简很多
-class Solution1(object): #aw
+class Solution1: #aw
     def lemonadeChange(self, bills):
         five = ten = 0
         for bill in bills:
@@ -71,4 +71,32 @@ class Solution1(object): #aw
                     five -= 3
                 else:
                     return False
+        return True
+
+
+# 2020.12.16 恢复信心
+class Solution2:
+    def lemonadeChange(self, bills: List[int]) -> bool:
+        coin_dict = {5: 0, 10: 0}
+        for item in bills:
+            if item == 5:
+                coin_dict[5] += 1
+            if item == 10:
+                coin_dict[10] += 1
+                if coin_dict[5] > 0:
+                    coin_dict[5] -= 1
+                else:
+                    return False
+            if item == 20:
+                if coin_dict[5] == 0:
+                    return False
+                if coin_dict[10] > 0:
+                    coin_dict[10] -= 1
+                    coin_dict[5] -= 1
+                else:
+                    if coin_dict[5] > 2:
+                        coin_dict[5] -= 3
+                    else:
+                        return False
+
         return True

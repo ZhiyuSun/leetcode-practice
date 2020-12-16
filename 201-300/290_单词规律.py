@@ -30,3 +30,42 @@ class Solution:
                 if dct[pattern[i]] != t[i]:
                     return False
         return True
+
+
+# 2020.12.16 通过自己的努力，虽然蹩脚，但是做了出来
+class Solution1:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        s_arr = s.split(" ")
+        p_arr = list(pattern)
+        if len(s_arr) != len(p_arr):
+            return False
+        m_dict = {}
+        for i in range(len(s_arr)):
+            if p_arr[i] in m_dict:
+                if m_dict[p_arr[i]] != s_arr[i]:
+                    return False
+            else:
+                for v in m_dict.values():
+                    if v == s_arr[i]:
+                        return False
+                m_dict[p_arr[i]] = s_arr[i]
+
+        return True
+
+
+# 参考别人的代码，双哈希表
+class Solution2:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        word2ch = dict()
+        ch2word = dict()
+        words = s.split()
+        if len(pattern) != len(words):
+            return False
+        
+        for ch, word in zip(pattern, words):
+            if (word in word2ch and word2ch[word] != ch) or (ch in ch2word and ch2word[ch] != word):
+                return False
+            word2ch[word] = ch
+            ch2word[ch] = word
+    
+        return True
