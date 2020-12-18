@@ -28,3 +28,17 @@ e
 class Solution:
     def findTheDifference(self, s: str, t: str) -> str:
         return chr(sum(map(ord, t)) - sum(map(ord, s)))
+
+# 2020.12.18 我变笨了
+from collections import defaultdict
+class Solution1:
+    def findTheDifference(self, s: str, t: str) -> str:
+        t_dict = defaultdict(int)
+        for i in t:
+            t_dict[i] += 1
+        for i in s:
+            t_dict[i] -= 1
+        for k, v in t_dict.items():
+            if v > 0:
+                return k
+                
