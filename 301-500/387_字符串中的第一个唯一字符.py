@@ -26,3 +26,15 @@ class Solution:
             if count[ch] == 1:
                 return idx
         return -1
+
+# 2020.12.23 吃点甜头
+from collections import defaultdict
+class Solution1:
+    def firstUniqChar(self, s: str) -> int:
+        count = defaultdict(int)
+        for i in s:
+            count[i] += 1
+        for i in range(len(s)):
+            if count[s[i]] == 1:
+                return i
+        return -1 
