@@ -88,3 +88,22 @@ class Solution3:
                     ch_map[s[i]] = t[i]
             i += 1
         return True
+
+
+class Solution4:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        if len(s) != len(t): return False
+        map_dict_a = {}
+        map_dict_b = {}
+        for i in range(len(s)):
+            if s[i] in map_dict_a:
+                if t[i] != map_dict_a[s[i]]:
+                    return False
+            else:
+                map_dict_a[s[i]] = t[i]
+            if t[i] in map_dict_b:
+                if s[i] != map_dict_b[t[i]]:
+                    return False
+            else:
+                map_dict_b[t[i]] = s[i]
+        return True
