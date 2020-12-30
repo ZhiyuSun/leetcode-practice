@@ -49,3 +49,13 @@ class Solution2:
 
 a = Solution2()
 print(a.twoSum([1,2,3], 3))
+
+
+# 2020.12.30 而今迈步从头越
+from typing import List
+class Solution3:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        for i in range(len(nums)-1):
+            for j in range(i+1, len(nums)):
+                if nums[i] + nums[j] == target:
+                    return [i, j]
