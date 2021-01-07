@@ -64,3 +64,34 @@ class Solution2:
             res += 1
         return res
 
+
+# 2021.01.07 再战
+class Solution3:
+    def maxDepth(self, root: TreeNode) -> int:
+        if not root: return 0
+        queue = [[root]]
+        ans = 0
+        while queue:
+            ans+=1
+            cur_level = queue.pop()
+            nex_level = []
+            for i in cur_level:
+                if i.left:
+                    nex_level.append(i.left)
+                if i.right:
+                    nex_level.append(i.right)
+            if nex_level:
+                queue.append(nex_level)
+        return ans
+
+# 广度优先，没有之前的做法优雅，惭愧惭愧
+
+
+# 复杂度分析：
+# DFS
+# 时间复杂度：O(n)O(n)，其中 nn 为二叉树节点的个数。每个节点在递归中只被遍历一次。
+# 空间复杂度：O(\textit{height})O(height)，其中 \textit{height}height 表示二叉树的高度。递归函数需要栈空间，而栈空间取决于递归的深度，因此空间复杂度等价于二叉树的高度。
+
+# BFS
+# 时间复杂度：O(n)O(n)，其中 nn 为二叉树的节点个数。与方法一同样的分析，每个节点只会被访问一次。
+# 空间复杂度：此方法空间的消耗取决于队列存储的元素数量，其在最坏情况下会达到 O(n)O(n)。

@@ -54,3 +54,45 @@ class Solution1:
             res += 1
             return min(_dfs(node.left, res), _dfs(node.right, res))
         return _dfs(root, 1)
+
+
+# 2021.01.07 误打误撞  DFS
+class Solution2:
+    def minDepth(self, root: TreeNode) -> int:
+        if not root: return 0
+        if not root.left: return self.minDepth(root.right) + 1
+        if not root.right: return self.minDepth(root.left) + 1
+        return min(self.minDepth(root.right), self.minDepth(root.left)) + 1
+
+
+# 2021.01.07 BFS 成神了
+class Solution3:
+    def minDepth(self, root: TreeNode) -> int:
+        if not root: return 0
+        queue = [[root]]
+        ans = 1
+        while queue:
+            cur_level = queue.pop()
+            nex_level = []
+            for i in cur_level:
+                if not i.left and not i.right:
+                    return ans
+                if i.left:
+                    nex_level.append(i.left)
+                if i.right:
+                    nex_level.append(i.right)
+            if nex_level:
+                queue.append(nex_level)
+            ans += 1
+        return ans
+
+
+
+# 复杂度分析
+# DFS
+# 时间复杂度：O(N)O(N)，其中 NN 是树的节点数。对每个节点访问一次。
+# 空间复杂度：O(N)O(N)，其中 NN 是树的节点数。空间复杂度主要取决于队列的开销，队列中的元素个数不会超过树的节点数。
+
+# BFS
+# 时间复杂度：O(N)O(N)，其中 NN 是树的节点数。对每个节点访问一次。
+# 空间复杂度：O(N)O(N)，其中 NN 是树的节点数。空间复杂度主要取决于队列的开销，队列中的元素个数不会超过树的节点数。

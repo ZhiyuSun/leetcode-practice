@@ -214,3 +214,25 @@ class Solution918:
         used = [0] * len(nums)
         _backtrace([])
         return res
+
+
+# 2021.01.07 太爱自己了，这都能做出来
+class Solution6:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def trace_back(cur, rest):
+            if not rest:
+                res.append(cur[:])
+                return
+            for i in range(len(rest)):
+                cur.append(rest[i])
+                trace_back(cur, rest[0:i] + rest[i+1:len(nums)])
+                cur.pop()
+
+        res = []
+        trace_back([], nums)
+        return res
+
+
+# 复杂度分析
+# 时间复杂度：O(n∗n!)，其中 n 为序列的长度。
+# 空间复杂度：O(n)O(n)，其中 nn 为序列的长度。除答案数组以外，递归函数在递归过程中需要为每一层递归函数分配栈空间，所以这里需要额外的空间且该空间取决于递归的深度，这里可知递归调用深度为 O(n)O(n)。
