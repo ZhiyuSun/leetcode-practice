@@ -1,3 +1,22 @@
+"""
+给你一个整数数组 nums，请你将该数组升序排列。
+
+ 
+
+示例 1：
+
+输入：nums = [5,2,3,1]
+输出：[1,2,3,5]
+示例 2：
+
+输入：nums = [5,1,1,2,0,0]
+输出：[0,0,1,1,2,5]
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/sort-an-array
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+"""
+
 
 class Solution(object):
     def sortArray(self, nums):
@@ -39,6 +58,43 @@ class Solution(object):
             nums[i], nums[lowest_value_index] = nums[lowest_value_index], nums[i]
         return nums
 
+    # 插入排序
+    def insert_sort(self, nums):
+        for i in range(1, len(nums)):
+            if nums[i] < nums[i-1]:
+                temp = nums[i]
+                index = i
+                for j in range(i-1, -1, -1):
+                    if nums[j] > temp:
+                        nums[j+1] = nums[j]
+                        index = j
+                    else:
+                        break
+                nums[index] = temp
+        return nums
+
+    # 归并排序
+    def merge_sort(self, nums):
+        self.do_merge_sort(nums, 0, len(nums) - 1)
+        return nums
+
+    def do_merge_sort(self, nums, l, r):
+        if l == r: return
+        mid = (l+r) // 2
+        self.do_merge_sort(nums, l, mid)
+        self.do_merge_sort(nums, mid+1, r)
+        tmp = []
+        i, j = l, mid + 1
+        while i <= mid or j <= r:
+            if i > mid or (j<=r and nums[j] < nums[i]):
+                tmp.append(nums[j])
+                j += 1
+            else:
+                tmp.append(nums[i])
+                i += 1
+        nums[l:r+1] = tmp
+
+    # 堆排序
     def heapify(self, nums, heap_size, root_index):
         # 设最大元素索引为根节点索引
         largest = root_index
@@ -114,18 +170,10 @@ class Solution(object):
         return nums
 
     def quicksort2(self, nums):    
-        if len(nums) <= 1:        
-            return nums    
-        pivot = nums[len(nums) // 2]    
-        left = [x for x in nums if x < pivot]    
-        middle = [x for x in nums if x == pivot]    
-        right = [x for x in nums if x > pivot]    
-        return self.quicksort2(left) + middle + self.quicksort2(right)
-
-s = Solution()
-print(s.bubble_sort([1,3,4,6,2,8,0]))
-print(s.selection_sort([1,3,4,6,2,8,0]))
-print(s.heap_sort([1,3,4,6,2,8,0])
-print(s.quicksort2([1,3,4,6,2,8,0]))
-
-
+        if len(nums) <= 1:
+            return nums
+        else:
+            pivot = nums[0]
+            less = [x for x in nums[1:] if x < pivot]
+            greater = [x for x in nums[1:] if x >= pivot]
+            return self.quicksort2(less) + [pivot] + self.quicksort2(greater)
