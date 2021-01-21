@@ -46,3 +46,29 @@ class Solution1:
             visited.add(node)
             node = node.next
         return False
+
+
+# 2021.01.21 环形链表
+class Solution2:
+    def hasCycle(self, head: ListNode) -> bool:
+        node_set = set()
+        while head:
+            if head in node_set:
+                return True
+            else:
+                node_set.add(head)
+            head = head.next
+        return False
+
+# 双指针
+class Solution3:
+    def hasCycle(self, head: ListNode) -> bool:
+        if not head or not head.next: return False
+        p = head
+        q = head.next
+        while p != q:
+            if not q or not q.next: return False
+            p = p.next
+            q = q.next.next
+
+        return True
