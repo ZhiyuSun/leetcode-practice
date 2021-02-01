@@ -37,3 +37,33 @@ class Solution:
             # 第 i 到 rk 个字符是一个极长的无重复字符子串
             ans = max(ans, rk - i + 1)
         return ans
+
+# 2021.02.01 我居然写出来了
+class Solution2:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if not s: return 0
+        if len(s) == 1: return 1
+        i, j = 0, 0
+        tmp = { s[0] }
+        res = 1
+        while j < len(s) - 1:
+            j += 1
+            if s[j] in tmp:
+                while i < j:
+                    if s[i] == s[j]:
+                        tmp.remove(s[i])
+                        i += 1
+                        break
+                    else:
+                        tmp.remove(s[i])
+                        i += 1
+                tmp.add(s[j])
+            else:
+                tmp.add(s[j])
+                res = max(res, len(tmp))
+        return res
+
+
+# 总结优化方向：
+# 我移动的是右指针，然后移动左指针
+# 其实可以移动左指针，看右指针能移动多远

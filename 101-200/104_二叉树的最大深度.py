@@ -95,3 +95,10 @@ class Solution3:
 # BFS
 # 时间复杂度：O(n)O(n)，其中 nn 为二叉树的节点个数。与方法一同样的分析，每个节点只会被访问一次。
 # 空间复杂度：此方法空间的消耗取决于队列存储的元素数量，其在最坏情况下会达到 O(n)O(n)。
+
+
+# 2021.01.28 递归法
+class Solution4:
+    def maxDepth(self, root: TreeNode) -> int:
+        if not root: return 0
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
