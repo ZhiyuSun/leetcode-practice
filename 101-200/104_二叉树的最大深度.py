@@ -102,3 +102,9 @@ class Solution4:
     def maxDepth(self, root: TreeNode) -> int:
         if not root: return 0
         return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+
+
+# 2021.2.2 Python的一行解法
+class Solution5:
+    def maxDepth(self, root: TreeNode) -> int:
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1 if root else 0

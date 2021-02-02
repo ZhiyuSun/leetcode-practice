@@ -96,3 +96,12 @@ class Solution3:
 # BFS
 # 时间复杂度：O(N)O(N)，其中 NN 是树的节点数。对每个节点访问一次。
 # 空间复杂度：O(N)O(N)，其中 NN 是树的节点数。空间复杂度主要取决于队列的开销，队列中的元素个数不会超过树的节点数。
+
+
+# 2021.02.02 再战，稍微迟疑了一会儿，运用递归的思路还是能写出来
+class Solution4:
+    def minDepth(self, root: TreeNode) -> int:
+        if not root: return 0
+        if not root.left: return self.minDepth(root.right) + 1
+        if not root.right: return self.minDepth(root.left) + 1
+        return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
