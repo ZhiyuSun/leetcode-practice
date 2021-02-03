@@ -21,3 +21,21 @@ https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
 https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-postordertraversal/
 https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-postordertraversal/
 https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-postordertraversal/
+
+
+## 排列、组合
+
+全排列：
+
+https://leetcode-cn.com/problems/permutations/
+
+组合：
+
+https://leetcode-cn.com/problems/combinations/
+
+子集：
+
+https://leetcode-cn.com/problems/subsets/
+
+下⼀个排列：
+https://leetcode-cn.com/problems/next-permutation/

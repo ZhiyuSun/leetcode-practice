@@ -45,3 +45,41 @@ class Solution2:
             pre.append(i)
             self.__dfs(i + 1, k, n, pre, res)
             pre.pop()
+
+
+# 2021.02.03 模仿回溯的思路，终于写出来了
+class Solution3:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        def backtrace(cur, index):
+            if len(cur) == k:
+                res.append(cur)
+            for i in range(index, n):
+                if used[i] == 1:
+                    continue
+                used[i] = 1
+                backtrace(cur + [i+1], i+1)
+                used[i] = 0
+
+        used = [0] * n
+        res = []
+        backtrace([], 0)
+        return res
+
+# 经验总结：
+# 有个数组，专门去做标记
+# 依然可以使用内部函数
+# 一开始发现有重，后来增加一个新的索引参数可解决问题
+
+
+# 2021.02.03 优化版，因为是按顺序选择，所以无需used数组
+class Solution4:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        def backtrace(cur, index):
+            if len(cur) == k:
+                res.append(cur)
+            for i in range(index, n):
+                backtrace(cur + [i+1], i+1)
+
+        res = []
+        backtrace([], 0)
+        return res

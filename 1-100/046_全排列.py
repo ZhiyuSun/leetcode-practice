@@ -235,4 +235,17 @@ class Solution6:
 
 # 复杂度分析
 # 时间复杂度：O(n∗n!)，其中 n 为序列的长度。
-# 空间复杂度：O(n)O(n)，其中 nn 为序列的长度。除答案数组以外，递归函数在递归过程中需要为每一层递归函数分配栈空间，所以这里需要额外的空间且该空间取决于递归的深度，这里可知递归调用深度为 O(n)O(n)。
+# 空间复杂度：O(n)，其中 n 为序列的长度。除答案数组以外，递归函数在递归过程中需要为每一层递归函数分配栈空间，所以这里需要额外的空间且该空间取决于递归的深度，这里可知递归调用深度为 O(n)。
+
+# 2021.02.03 运用递归的思想，写出来了
+class Solution7:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def _dfs(cur, arr):
+            if len(arr) == 0:
+                res.append(cur)
+            for i in range(len(arr)):
+                _dfs(cur + [arr[i]], arr[0:i] + arr[i+1:])
+
+        res = []
+        _dfs([], nums)
+        return res

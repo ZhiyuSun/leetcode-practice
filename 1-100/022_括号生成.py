@@ -148,3 +148,41 @@ class Solution6:
         res = []
         _dfs(n, n, "")
         return res
+
+
+# 2021.02.03 万法归一，我很强
+class Solution7:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def traceback(left, right, cur):
+            if left == right == n:
+                res.append(cur)
+                return
+            if left < n:
+                traceback(left+1, right, cur + "(")
+            if right < left and right < n:
+                traceback(left, right+1, cur + ")")
+
+        res = []
+        traceback(0, 0, "")
+        return res
+
+# 优化版
+class Solution8:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def traceback(left, right, cur):
+            if left == right == n:
+                res.append(cur)
+                return
+            if left < n:
+                traceback(left+1, right, cur + "(")
+            if right < left and right < n:
+                traceback(left, right+1, cur + ")")
+
+        res = []
+        traceback(0, 0, "")
+        return res
+
+# 经验总结
+# 这道题的解法很多，BFS，DFS, 回溯
+# 回溯本质上也是一种递归，它是一种试错的思路
+# 递归：把大问题转化成重复的子问题， 先把递归终止条件写了，然后思考每种情况下该如何递归

@@ -56,3 +56,36 @@ class Solution2:
         return output
 
 # 2020.08.28 惨败，还是不会
+
+
+# 2021.02.03 还是不会，参考旧的解法
+class Solution3:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        def _dfs(first, cur, k):
+            if len(cur) == k:
+                res.append(cur[:])
+                return
+            for i in range(first, len(nums)):
+                cur.append(nums[i])
+                _dfs(i+1, cur, k)
+                cur.pop()
+        
+        res = []
+        for k in range(len(nums) + 1):
+            _dfs(0, [], k)
+        return res
+
+# 另一种解法，利用python可以巧妙的转化回溯
+class Solution4:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        def _dfs(first, cur, k):
+            if len(cur) == k:
+                res.append(cur)
+                return
+            for i in range(first, len(nums)):
+                _dfs(i+1, cur + [nums[i]], k)
+        
+        res = []
+        for k in range(len(nums) + 1):
+            _dfs(0, [], k)
+        return res

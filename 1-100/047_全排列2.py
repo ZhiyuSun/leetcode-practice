@@ -67,3 +67,27 @@ class Solution1:
 
 # 心得整理
 # 需要标记每个数是否有被用过
+# 标记是否用过，可以用一个数组，不断增加用过的元素，或者预先把长度设置好
+
+# 2021.02.03 参考之前的做法
+class Solution2:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        def backtrack(sol):
+            if len(sol) == len(nums):  
+                res.append(sol[:])
+                return
+            for i in range(len(nums)):
+                if check[i] == 1:
+                    continue
+                if i > 0 and nums[i] == nums[i-1] and check[i-1] == 0:
+                    continue
+                check[i] = 1
+                backtrack(sol+[nums[i]])
+                check[i] = 0
+        
+        nums.sort()
+        res = []
+        check = [0 for i in range(len(nums))]
+        backtrack([])
+        return res
+
