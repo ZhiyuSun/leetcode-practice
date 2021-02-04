@@ -39,3 +39,20 @@ https://leetcode-cn.com/problems/subsets/
 
 下⼀个排列：
 https://leetcode-cn.com/problems/next-permutation/
+
+
+## 链表
+
+1. 合并两个、K个有序链表：
+https://leetcode-cn.com/problems/merge-two-sorted-lists/
+https://leetcode-cn.com/problems/merge-k-sorted-lists/
+
+2. 检测环：
+https://leetcode-cn.com/problems/linked-list-cycle/
+
+3. 链表⾥的倒数K个元素
+https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-dikge-
+jie-dian-lcof/
+
+4. 综合：https://leetcode-cn.com/problems/er-cha-sou-suo-shuyu-
+shuang-xiang-lian-biao-lcof/
