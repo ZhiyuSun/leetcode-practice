@@ -55,3 +55,68 @@ class Solution1:
 # 扩展：找第K大的数，topK问题
 # 解法：全局排序
 
+# 2021.02.07 再战经典题
+# 首先是排序思路，这种方法是O(nlogn)
+class Solution2:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        arr.sort()
+        return arr[0:k]
+
+# 然后我想到的是选择排序，只要前k个，那么实际复杂度就是O(kn),某个用例会超时
+class Solution3:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        for i in range(k):
+            lowest_index = i
+            for j in range(i+1, len(arr)):
+                if arr[j] < arr[lowest_index]:
+                    lowest_index = j
+            arr[i], arr[lowest_index] = arr[lowest_index], arr[i]
+        return arr[0:k]
+
+# 利用heapq建堆，但是还是记不住
+class Solution4:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        if k == 0:
+            return list()
+
+        hp = [-x for x in arr[:k]]
+        heapq.heapify(hp)
+        for i in range(k, len(arr)):
+            if -hp[0] > arr[i]:
+                heapq.heappop(hp)
+                heapq.heappush(hp, -arr[i])
+        ans = [-x for x in hp]
+        return ans
+# Python的堆是小根堆，每入栈一个元素，会把最小的去除。所以要把每个数据反一下
+
+# 快排思想
+import random
+class Solution5:
+    def partition(self, nums, l, r):
+        pivot = nums[r]
+        i = l - 1
+        for j in range(l, r):
+            if nums[j] <= pivot:
+                i += 1
+                nums[i], nums[j] = nums[j], nums[i]
+        nums[i + 1], nums[r] = nums[r], nums[i + 1]
+        return i + 1
+
+    def randomized_partition(self, nums, l, r):
+        i = random.randint(l, r)
+        nums[r], nums[i] = nums[i], nums[r]
+        return self.partition(nums, l, r)
+
+    def randomized_selected(self, arr, l, r, k):
+        pos = self.randomized_partition(arr, l, r)
+        num = pos - l + 1
+        if k < num:
+            self.randomized_selected(arr, l, pos - 1, k)
+        elif k > num:
+            self.randomized_selected(arr, pos + 1, r, k - num)
+
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        if k == 0:
+            return list()
+        self.randomized_selected(arr, 0, len(arr) - 1, k)
+        return arr[:k]

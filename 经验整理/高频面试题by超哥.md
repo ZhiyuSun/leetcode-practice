@@ -56,3 +56,18 @@ jie-dian-lcof/
 
 4. 综合：https://leetcode-cn.com/problems/er-cha-sou-suo-shuyu-
 shuang-xiang-lian-biao-lcof/
+
+
+# 我的整理
+
+TOPK问题
+
+剑指 Offer 40. 最小的k个数
+https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/
+
+
+215. 数组中的第K个最大元素
+https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
+
+347. 前K个高频元素
+https://leetcode-cn.com/problems/top-k-frequent-elements/

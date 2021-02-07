@@ -100,3 +100,15 @@ class Solution3:
                 heapq.heapreplace(L, nums[index])
         # 最后堆顶中的元素就是堆中最小的，整个数组中的第 k 大元素
         return L[0]
+
+# 2021.02.07 在学习了众多相似题后，使用了最小堆法
+# 思路，只要把比堆顶小的全部排除掉，剩下的堆顶就是k个数里最小的数，同时也是所有数里最k大的数
+class Solution4:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        hp = [x for x in nums[:k]]
+        heapq.heapify(hp)
+        for i in range(k, len(nums)):
+            if hp[0] < nums[i]:
+                heapq.heappop(hp)
+                heapq.heappush(hp, nums[i])
+        return hp[0]
