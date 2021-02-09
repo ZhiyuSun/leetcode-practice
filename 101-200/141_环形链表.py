@@ -72,3 +72,46 @@ class Solution3:
             q = q.next.next
 
         return True
+
+
+# 2021.02.09 面试倒计时
+# 我的解法，哈希表法
+class Solution4:
+    def hasCycle(self, head: ListNode) -> bool:
+        node_set= set()
+        while head:
+            if head in node_set:
+                return True
+            else:
+                node_set.add(head)
+            head = head.next
+        return False
+
+
+# 我的解法，双指针法，类似追及问题
+class Solution5:
+    def hasCycle(self, head: ListNode) -> bool:
+        if not head: return False
+        p = head
+        q = head.next
+        while p and q:
+            if p == q: return True
+            p = p.next
+            q = q.next
+            if q:
+                q = q.next
+            else:
+                return False
+        return False
+
+# 参考之前的解法的双指针的优化版
+class Solution6:
+    def hasCycle(self, head: ListNode) -> bool:
+        if not head or not head.next: return False
+        p = head
+        q = head.next
+        while p != q:
+            if not q or not q.next: return False
+            p = p.next
+            q = q.next.next
+        return True

@@ -13,3 +13,33 @@
 链接：https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+# 2021.02.09 参考了题解，使用双指针，先走k步数
+class Solution:
+    def getKthFromEnd(self, head: ListNode, k: int) -> ListNode:
+        p = head
+        q = head
+        while k > 0:
+            q = q.next
+            k -= 1
+        while q:
+            q = q.next
+            p = p.next
+        return p
+    
+# 别人的解答
+class Solution1:
+    def getKthFromEnd(self, head: ListNode, k: int) -> ListNode:
+        former, latter = head, head
+        for _ in range(k):
+            former = former.next
+        while former:
+            former, latter = former.next, latter.next
+        return latter
+

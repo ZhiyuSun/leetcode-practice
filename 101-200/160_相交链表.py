@@ -74,3 +74,26 @@ class Solution2:
             cur1 = cur1.next if cur1 else headB
             cur2 = cur2.next if cur2 else headA
         return cur1
+
+
+# 2021.02.09 我的解法，一开始出错了，后来没辙加了个falg
+class Solution3:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        p = headA
+        q = headB
+        falg_A = True
+        falg_B = True
+        while p and q:
+            if p == q:
+                return p
+            if p.next or not falg_A:
+                p = p.next
+            else:
+                falg_A = False
+                p = headB
+            if q.next or not falg_B:
+                q = q.next
+            else:
+                falg_B = False
+                q = headA
+        return None
