@@ -19,9 +19,8 @@ https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
 
 构造
 https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-postordertraversal/
-https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-postordertraversal/
-https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-postordertraversal/
-
+https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
 
 ## 排列、组合
 
