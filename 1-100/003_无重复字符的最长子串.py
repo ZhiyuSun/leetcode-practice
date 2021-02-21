@@ -69,3 +69,25 @@ class Solution2:
             # 第 i 到 rk 个字符是一个极长的无重复字符子串
             ans = max(ans, rk - i + 1)
         return ans
+
+
+# 2021.02.21 我TMD真是个垃圾，做过的题，现在重做花了一小时
+class Solution3:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        i, j = 0, 0
+        window_set = set()
+        res = 0
+        while j < len(s):
+            if s[j] not in window_set:
+                window_set.add(s[j])
+                res = max(res, j-i+1)
+            else:
+                while i < j:
+                    if s[i] == s[j]:
+                        i += 1
+                        break
+                    else:
+                        window_set.remove(s[i])
+                        i += 1
+            j += 1
+        return res

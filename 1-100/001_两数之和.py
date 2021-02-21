@@ -88,3 +88,13 @@ class Solution4:
             else:
                 data_dict[nums[i]] = i
         
+
+# 2021.02.21 游刃有余
+class Solution5:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        visited = {}
+        for i in range(len(nums)):
+            if target - nums[i] in visited.keys():
+                return [i, visited[target-nums[i]]]
+            else:
+                visited[nums[i]] = i
