@@ -113,3 +113,5 @@ class LRUCache1:
         node = self.tail.prev
         self.removeNode(node)
         return node
+
+# 2021.02.22 知道要用哈希表+双向链表，但还是不会

@@ -37,3 +37,28 @@ class Solution:
                 nxt.next = pre2
                 nxt = cur.next
         return dummy.next
+
+# 2021.02.22 还是不会
+class Solution1:
+    def insertionSortList(self, head: ListNode) -> ListNode:
+        if not head:
+            return head
+        
+        dummyHead = ListNode(0)
+        dummyHead.next = head
+        lastSorted = head
+        curr = head.next
+
+        while curr:
+            if lastSorted.val <= curr.val:
+                lastSorted = lastSorted.next
+            else:
+                prev = dummyHead
+                while prev.next.val <= curr.val:
+                    prev = prev.next
+                lastSorted.next = curr.next
+                curr.next = prev.next
+                prev.next = curr
+            curr = lastSorted.next
+        
+        return dummyHead.next
