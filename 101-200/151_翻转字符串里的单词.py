@@ -9,3 +9,10 @@
 class Solution:
     def reverseWords(self, s: str) -> str:
         return " ".join(reversed(s.split()))
+
+
+# 2021.03.08 我的垃圾做法，还不如从前呢
+class Solution2:
+    def reverseWords(self, s: str) -> str:
+        arr = s.strip().split()
+        return " ".join(reversed(arr))
