@@ -38,3 +38,28 @@ class Solution1:
                 end = max_position
                 step += 1
         return step
+
+# 2021.03.09 做过的题都不会做了，辣鸡
+class Solution2:
+    def jump(self, nums: List[int]) -> int:
+        n = len(nums)
+        # maxPos：目前能跳到的最远位置
+        # end：上次跳跃可达范围右边界（下次最右起跳点）
+        # step：跳跃次数
+        maxPos, end, step = 0, 0, 0
+        for i in range(n - 1):
+            if maxPos >= i: # 其实这个判断非必须
+                maxPos = max(maxPos, i + nums[i])
+                # 到达上次跳跃能到达的右边界了
+                if i == end:
+                    # 目前能跳到的最远位置变成了下次起跳位置的右边界
+                    end = maxPos
+                    # 进入下一次跳跃
+                    step += 1
+                    # 优化：起跳点达到或者超过终点就可以结束循环了
+                    if maxPos >= len(nums) - 1:
+                        break
+
+        return step
+# 有点难以理解
+# 思想就一句话：每次在上次能跳到的范围（end）内选择一个能跳的最远的位置（也就是能跳到max_far位置的点）作为下次的起跳点 ！

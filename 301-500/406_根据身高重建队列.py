@@ -41,3 +41,6 @@ class Solution1:
         for person in people:
             ans[person[1]:person[1]] = [person]
         return ans
+
+# 2021.03.09 终于知道为什么上次没提交了，这道题近乎弃疗
+

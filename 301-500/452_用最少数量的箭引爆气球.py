@@ -34,3 +34,19 @@ class Solution:
                 ans += 1
         
         return ans
+
+# 2021.03.09 思路正确，但是不够简洁，没写出来
+class Solution1:
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        if not points:
+            return 0
+        
+        points.sort(key=lambda balloon: balloon[1])
+        pos = points[0][1]
+        ans = 1
+        for balloon in points:
+            if balloon[0] > pos:
+                pos = balloon[1]
+                ans += 1
+        
+        return ans

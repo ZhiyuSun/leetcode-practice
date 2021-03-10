@@ -56,3 +56,5 @@ class Solution:
             head = tail.next
         
         return hair.next
+
+# 2021.03.10 还是不会，逻辑思维能力太差

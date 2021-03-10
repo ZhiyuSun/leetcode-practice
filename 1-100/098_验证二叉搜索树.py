@@ -73,3 +73,56 @@ class Solution1:
 
 
         return helper(root)
+
+
+# 2021.03.10 我的方法，一开始递归没做出来，采用中序遍历的思路
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution2:
+    def isValidBST(self, root: TreeNode) -> bool:
+        if not root: return True
+        def zhongxu(node):
+            if not node: return []
+            return zhongxu(node.left) + [node.val] + zhongxu(node.right)
+        res = zhongxu(root)
+        for i in range(len(res)-1):
+            if res[i] >= res[i+1]: return False
+        return True
+
+# 2021.03.10 正解，需要在递归的时候，记录最大值和最小值
+# 这是一种更加pythonic的代码
+class Solution3:
+    def isValidBST(self, root):
+        
+        def BFS(root, left, right):
+            if root is None:
+                return True
+            
+            if left < root.val < right:
+                return BFS(root.left, left, root.val) and BFS(root.right, root.val, right)
+            else:
+                return False
+
+        return BFS(root, -float('inf'), float('inf'))
+
+# 2021.03.10 用栈实现中序遍历
+class Solution4:
+    def isValidBST(self, root: TreeNode) -> bool:
+        stack, inorder = [], float('-inf')
+        
+        while stack or root:
+            while root:
+                stack.append(root)
+                root = root.left
+            root = stack.pop()
+            # 如果中序遍历得到的节点的值小于等于前一个 inorder，说明不是二叉搜索树
+            if root.val <= inorder:
+                return False
+            inorder = root.val
+            root = root.right
+
+        return True

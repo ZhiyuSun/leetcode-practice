@@ -27,9 +27,29 @@ class TreeNode:
 
 # 2020.09.30 回味了之前的做法，很巧妙
 class Solution:
-    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
+    def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
         if not root:
             return False
         if not (root.left or root.right):
-            return sum == root.val
-        return self.hasPathSum(root.left, sum-root.val) or self.hasPathSum(root.right, sum-root.val)
+            return targetSum == root.val
+        return self.hasPathSum(root.left, targetSum-root.val) or self.hasPathSum(root.right, targetSum-root.val)
+
+
+
+# 2021.03.10 隔了一晚上，还是靠自己的能力做了出来，做不出来是要崩溃的
+class Solution1:
+    def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
+        def dfs(node, cur):
+            if not node.left and not node.right:
+                return True if cur == targetSum else False
+            else:
+                if node.left and node.right:
+                    return dfs(node.left, cur + node.left.val) or dfs(node.right, cur + node.right.val)
+                if node.left:
+                    return dfs(node.left, cur + node.left.val)
+                if node.right:
+                    return dfs(node.right, cur + node.right.val)
+
+        if not root: return False
+
+        return dfs(root, root.val)
