@@ -19,3 +19,19 @@ class Solution:
             else:
                 hi = mi
         return lo
+
+# 2021.03.13 自己做出来了
+class Solution:
+    def minEatingSpeed(self, piles, H):
+        def possible(k):
+            return sum([(i-1) // k + 1 for i in piles]) <= H
+
+        
+        l, r = 1, max(piles)
+        while l < r:
+            mid = (l + r) // 2
+            if not possible(mid):
+                l = mid + 1
+            else:
+                r = mid
+        return l

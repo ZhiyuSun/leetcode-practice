@@ -70,3 +70,16 @@ class Solution2:
             queue.append(u.right)
             queue.append(v.left)
         return True
+
+# 2021.03.11 自己写出来了，这道题给了我很多自信
+class Solution3:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root: return True
+        def compare_nodes(left, right):
+            if not left and not right: return True
+            if not left or not right: return False
+            return left.val == right.val and compare_nodes(left.left, right.right) and compare_nodes(left.right, right.left)
+
+        return compare_nodes(root.left, root.right)
+
+# 这道题也可以用BFS，不过要注意入队列的顺序

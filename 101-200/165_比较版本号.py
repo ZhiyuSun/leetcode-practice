@@ -33,7 +33,7 @@ class Solution(object):
         return 0
 
 s = Solution()
-print s.compareVersion("0", "1")
+print(s.compareVersion("0", "1"))
 
 # 其他的解法
 
