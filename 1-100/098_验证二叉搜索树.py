@@ -85,10 +85,10 @@ class Solution1:
 class Solution2:
     def isValidBST(self, root: TreeNode) -> bool:
         if not root: return True
-        def zhongxu(node):
+        def inorderTraversal(node):
             if not node: return []
-            return zhongxu(node.left) + [node.val] + zhongxu(node.right)
-        res = zhongxu(root)
+            return inorderTraversal(node.left) + [node.val] + inorderTraversal(node.right)
+        res = inorderTraversal(root)
         for i in range(len(res)-1):
             if res[i] >= res[i+1]: return False
         return True
@@ -125,4 +125,22 @@ class Solution4:
             inorder = root.val
             root = root.right
 
+        return True
+
+
+# 2021.03.16 牛啊牛啊，中序遍历的迭代手法我自己写出来了
+class Solution5:
+    def isValidBST(self, root: TreeNode) -> bool:
+        stack = []
+        prev = float('-inf')
+        while stack or root:
+            if root:
+                stack.append(root)
+                root = root.left
+            else:
+                node = stack.pop()
+                if node.val <= prev:
+                    return False
+                prev = node.val
+                root = node.right
         return True

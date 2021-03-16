@@ -43,3 +43,44 @@ class Solution1:
             l1.next = self.mergeTwoLists(l1.next, l2)
         
         return l1 or l2
+
+# 2021.03.16 写的不利索，我知道不是最优的方法
+class Solution2:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        head = ListNode(0)
+        cur = head
+        while l1 and l2:
+            if l1.val < l2.val:
+                head.next = l1
+                l1 = l1.next
+            else:
+                head.next = l2
+                l2 = l2.next
+            head = head.next
+        if l1:
+            head.next = l1
+        if l2:
+            head.next = l2
+        return cur.next 
+
+
+# 2021.03.16 哈哈哈，写出了蹩脚的递归法
+class Solution3:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        if not l1: return l2
+        if not l2: return l1
+        if l1.val > l2.val:
+            l2.next = self.mergeTwoLists(l1, l2.next)
+            return l2
+        else:
+            l1.next = self.mergeTwoLists(l1.next, l2)
+            return l1
+
+# 2021.03.16 重温官方的方法，yyds
+class Solution4:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        if l1 and l2:
+            (l1, l2) = (l2, l1) if l2.val < l1.val else (l1, l2)
+            l1.next = self.mergeTwoLists(l1.next, l2)
+        
+        return l1 or l2
