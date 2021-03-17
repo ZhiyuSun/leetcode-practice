@@ -25,3 +25,17 @@ class Solution1:
             if tmp.left:
                 stack.append(tmp.left)
         return res
+
+# 2021.03.17 痛不欲生，还是不会
+class Solution2:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root: return []
+        stack, res = [root], []
+        while stack:
+            tmp = stack.pop()
+            res.append(tmp.val)
+            if tmp.right:
+                stack.append(tmp.right)
+            if tmp.left:
+                stack.append(tmp.left)
+        return res

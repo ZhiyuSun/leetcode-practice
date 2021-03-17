@@ -47,3 +47,17 @@ class Solution3:
             else:
                 node = None  # 没有左子树或右子树，强迫退栈
         return res
+
+# 2021.03.17 二叉树的后续遍历
+class Solution4:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root: return []
+        stack, res = [root], []
+        while stack:
+            tmp = stack.pop()
+            res.append(tmp.val)
+            if tmp.left:
+                stack.append(tmp.left)
+            if tmp.right:
+                stack.append(tmp.right)
+        return res[::-1]

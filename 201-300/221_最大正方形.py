@@ -55,8 +55,8 @@ class Solution1:
         return maxSquare
 
 # 2021.03.08 我好惨，做过的题，一点印象都没有
-# 暴力复杂度O(mnmin(m,n)^2)
-# 动态规划复杂度O(m,n)
+# 暴力复杂度O(m *n *min(m,n)^2)
+# 动态规划复杂度O(mn)
 class Solution2:
     def maximalSquare(self, matrix: List[List[str]]) -> int:
         if len(matrix) == 0 or len(matrix[0]) == 0:
@@ -76,3 +76,4 @@ class Solution2:
         
         maxSquare = maxSide * maxSide
         return maxSquare
+

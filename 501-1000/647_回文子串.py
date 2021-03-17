@@ -32,3 +32,39 @@ class Solution:
                     dp[i][j] = (dp[i + 1][j - 1] and s[i] == s[j])
                 if dp[i][j]: ans += 1
         return ans
+# 2021.03.17 这种方法太绕了，不学也罢
+
+
+# 2021.03.17 中心扩散法
+class Solution2:
+    def __init__(self):
+        self.count = 0
+
+    def countSubstrings(self, s: str) -> int:
+        size = len(s)
+        if size < 2: return size
+        for i in range(size):
+            self.center_spread(s, size, i, i)
+            self.center_spread(s, size, i, i + 1)
+        return self.count
+
+    def center_spread(self, s, size, left, right):
+        i = left
+        j = right
+        while i>=0 and j<size and s[i]==s[j]:
+            i-=1
+            j+=1
+            self.count+=1
+
+# 2021.03.17 新的动态规划法
+class Solution3:
+    def countSubstrings(self, s: str) -> int:
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        ans = 0
+        for j in range(n):
+            for i in range(0, j+1):
+                if s[i] == s[j] and (j-i<2 or dp[i+1][j-1]):
+                    dp[i][j] = True
+                    ans += 1
+        return ans
