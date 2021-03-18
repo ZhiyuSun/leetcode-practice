@@ -56,3 +56,15 @@ class Solution3:
         head.next.next = head
         head.next = None
         return last
+
+# 2021.03.18 自己还是不会，抄了一遍题解，需要注意
+class Solution4:
+    def reverseList(self, head: ListNode) -> ListNode:
+        prev = None
+        cur = head
+        while cur:
+            tmp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = tmp
+        return prev

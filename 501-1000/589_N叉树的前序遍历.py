@@ -30,3 +30,15 @@ class Solution2:
             stack.extend(root.children[::-1])
 
         return output
+
+# 2021.03.18 参考二叉树的解法
+class Solution3:
+    def preorder(self, root: 'Node') -> List[int]:
+        if not root: return []
+        stack, res = [root], []
+        while stack:
+            tmp = stack.pop()
+            res.append(tmp.val)
+            for i in reversed(tmp.children):
+                stack.append(i)
+        return res

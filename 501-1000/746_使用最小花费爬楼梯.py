@@ -62,3 +62,13 @@ class Solution4:
         for i in range(2, len(cost)):
             dp[i] = min(dp[i-2] + cost[i], dp[i-1] + cost[i])
         return min(dp[i], dp[i-1])
+
+# 2021.03.18 我有了自己的动态规划的思想，一遍过
+class Solution5:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        dp = [0] * (len(cost) + 1)
+        dp[0] = 0
+        dp[1] = 0
+        for i in range(2, len(cost) + 1):
+            dp[i] = min(dp[i-2] + cost[i-2], dp[i-1] + cost[i-1])
+        return dp[-1]

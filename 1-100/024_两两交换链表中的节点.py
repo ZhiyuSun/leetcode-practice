@@ -121,3 +121,16 @@ class Solutiondiedai2:
             head = first_node.next
 
         return blank.next
+
+
+# 2021.03.18 我真是绝了，居然用递归法做出来了
+class Solution1:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        if not head: return None
+        second = head.next
+        if not second: return head
+        head.next = self.swapPairs(second.next)
+        second.next = head
+        return second
+        
+

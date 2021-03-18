@@ -62,3 +62,15 @@ class Solution4:
         
         _dfs(n, [])
 
+
+# 2021.03.18 重温经典
+class Solution5:
+    def climbStairs(self, n: int) -> int:
+        if n == 1: return 1
+        if n == 2: return 2
+        f1, f2, ans = 1, 2, 0
+        for _ in range(2, n):
+            ans = f1 + f2
+            f1 = f2
+            f2 = ans
+        return ans
