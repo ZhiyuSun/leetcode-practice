@@ -69,3 +69,18 @@ class Solution3:
                 i += 1
             j += 1
         return nums
+
+# 2021.03.19
+class Solution4:
+    def moveZeroes(self, nums: List[int]) -> None:
+        if not nums: return nums
+        i = 0
+        for j in range(len(nums)):
+            if nums[j] != 0:
+                nums[i] = nums[j]
+                i += 1
+        for i in range(i, len(nums)):
+            nums[i] = 0
+        return nums
+
+# 经验总结：更优雅的做法是交换法，而不是覆盖法

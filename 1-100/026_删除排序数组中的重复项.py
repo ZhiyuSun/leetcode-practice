@@ -46,3 +46,20 @@ class Solution2:
                 i += 1
                 nums[i] = nums[j]
         return i+1
+
+# 2021.03.19 终于把弯给绕过来了
+class Solution3:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) < 2: return len(nums)
+        i = 0
+        j = 1
+        while j < len(nums):
+            if nums[j] == nums[j-1]:
+                j += 1
+            else:
+                i+=1
+                nums[i] = nums[j]
+                j+=1
+        return i + 1
+
+# 经验总结：简单来讲，双指针，看j等不等于i，如果不等于，i+1,并且获得j的值即可

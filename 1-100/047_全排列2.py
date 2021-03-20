@@ -91,3 +91,23 @@ class Solution2:
         backtrack([])
         return res
 
+# 2021.03.21 参考了之前的解法
+class Solution3:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        def _dfs(cur):
+            if len(cur) == len(nums):
+                res.append(cur)
+            for i in range(len(nums)):
+                if used[i]:
+                    continue
+                # 这一步是关键，如果同样的数，前面的记没用，就没必要再用了
+                if i > 0 and nums[i] == nums[i-1] and used[i-1] == 0:
+                    continue
+                used[i] = 1
+                _dfs(cur+[nums[i]])
+                used[i] = 0
+        nums.sort()
+        res = []
+        used = [0]*len(nums)
+        _dfs([])
+        return res

@@ -74,3 +74,13 @@ class Solution5:
             f1 = f2
             f2 = ans
         return ans
+
+
+# 2021.03.20 Python的缓存装饰器
+import functools
+class Solution6:
+    @functools.lru_cache(100)  # 缓存装饰器
+    def climbStairs(self, n: int) -> int:
+        if n == 1: return 1
+        if n == 2: return 2
+        return self.climbStairs(n-1) + self.climbStairs(n-2)

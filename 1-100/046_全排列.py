@@ -249,3 +249,37 @@ class Solution7:
         res = []
         _dfs([], nums)
         return res
+
+# 2021.03.20 可以灵活运用标记法
+class Solution8:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def _dfs(cur, used):
+            if len(cur) == len(nums):
+                res.append(cur)
+            for i in range(len(nums)):
+                if used[i]:
+                    continue
+                used[i] = 1
+                _dfs(cur+[nums[i]], used)
+                used[i] = 0
+        res = []
+        _dfs([], [0]*len(nums))
+        return res
+
+
+# 2021.03.20 减少参数
+class Solution9:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def _dfs(cur):
+            if len(cur) == len(nums):
+                res.append(cur)
+            for i in range(len(nums)):
+                if used[i]:
+                    continue
+                used[i] = 1
+                _dfs(cur+[nums[i]])
+                used[i] = 0
+        res = []
+        used = [0]*len(nums)
+        _dfs([])
+        return res

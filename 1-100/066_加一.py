@@ -48,3 +48,14 @@ class Solution2:
                 digits[i] = 0
         digits.insert(0, 1)
         return digits
+
+
+# 2021.03.20 取巧法
+class Solution3:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        num = int(''.join([str(i) for i in digits]))
+        num += 1
+        return [int(i) for i in str(num)]
+
+
+# 经验总结，数学法可以重点回忆一下

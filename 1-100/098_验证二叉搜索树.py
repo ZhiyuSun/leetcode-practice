@@ -144,3 +144,14 @@ class Solution5:
                 prev = node.val
                 root = node.right
         return True
+
+# 2021.03.20 递归迭代不分家
+class Solution6:
+    def isValidBST(self, root: TreeNode) -> bool:
+        def _dfs(root, left, right):
+            if not root: return True
+            if left < root.val < right:
+                return _dfs(root.left, left, root.val) and _dfs(root.right, root.val, right)
+            else:
+                return False
+        return _dfs(root, float('-inf'), float('inf'))

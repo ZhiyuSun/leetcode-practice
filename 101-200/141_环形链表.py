@@ -115,3 +115,16 @@ class Solution6:
             p = p.next
             q = q.next.next
         return True
+
+# 2021.03.19 环形链表，我的解法其实可以再优化
+class Solution7:
+    def hasCycle(self, head: ListNode) -> bool:
+        if not head or not head.next: return False
+        a, b = head, head.next
+        while a and b and b.next:
+            if a == b:
+                return True
+            a = a.next
+            b = b.next.next
+
+        return False

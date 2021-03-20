@@ -1,3 +1,23 @@
+"""
+给定一个二叉树，返回它的 后序 遍历。
+
+示例:
+
+输入: [1,null,2,3]  
+   1
+    \
+     2
+    /
+   3 
+
+输出: [3,2,1]
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-postorder-traversal
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+"""
+
 from typing import List
 
 # Definition for a binary tree node.
@@ -61,3 +81,26 @@ class Solution4:
             if tmp.right:
                 stack.append(tmp.right)
         return res[::-1]
+
+# 2021.03.20 新增递归法
+class Solution5:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        def postorder(node):
+            if not node: return
+            postorder(node.left)
+            postorder(node.right)
+            res.append(node.val)
+
+        res = []
+        postorder(root)
+        return res
+
+# 2021.03.20 递归法变体
+class Solution6:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root: return []
+        res = []
+        res.extend(self.postorderTraversal(root.left))
+        res.extend(self.postorderTraversal(root.right))
+        res.extend([root.val])
+        return res

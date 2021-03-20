@@ -40,3 +40,19 @@ class Solutiondg:
         res = []
         _inorder(root)
         return res
+
+
+# 2021.03.20 磕磕绊绊
+
+class Solution3:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        stack, res = [], []
+        while stack or root:
+            if root:
+                stack.append(root)
+                root = root.left
+            else:
+                tmp = stack.pop()
+                res.append(tmp.val)
+                root = tmp.right
+        return res

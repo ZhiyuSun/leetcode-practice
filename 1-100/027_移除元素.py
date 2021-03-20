@@ -34,3 +34,13 @@ class Solution2:
             else:
                 i += 1
         return i
+
+# 2021.03.20 一遍过，我升级了
+class Solution3:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        i = 0
+        for j in range(0, len(nums)):
+            if nums[j] != val:
+                nums[i] = nums[j]
+                i += 1
+        return i

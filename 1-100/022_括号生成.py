@@ -186,3 +186,33 @@ class Solution8:
 # 这道题的解法很多，BFS，DFS, 回溯
 # 回溯本质上也是一种递归，它是一种试错的思路
 # 递归：把大问题转化成重复的子问题， 先把递归终止条件写了，然后思考每种情况下该如何递归
+
+# 2021.03.20 一遍过，游刃有余
+class Solution9:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def _dfs(path, left, right):
+            if len(path) == 2 * n:
+                res.append(path)
+                return
+            if left > 0:
+                _dfs(path+'(', left-1, right)
+            if right > left:
+                _dfs(path+')', left, right-1)
+        
+        res = []
+        _dfs('', n, n)
+        return res
+
+# 2021.03.20 温习一遍BFS
+class Solution10:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res, queue = [], []
+        queue.append(('',n,n))
+        while queue:
+            path, left, right = queue.pop(0)
+            if left == right == 0:
+                res.append(path[:])
+                continue
+            if left > 0: queue.append((path+'(', left-1, right))
+            if right > left: queue.append((path+')', left, right-1))
+        return res

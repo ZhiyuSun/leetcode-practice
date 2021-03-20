@@ -81,3 +81,9 @@ class Solution6:
             if ch_map[k] > 0:
                 return False
         return True
+
+# 2021.03.20 一行解法
+import collections
+class Solution7:
+    def isAnagram(self, s: str, t: str) -> bool:
+        return collections.Counter(s) == collections.Counter(t)

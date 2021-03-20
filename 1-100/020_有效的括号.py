@@ -36,3 +36,40 @@ class Solution:
                     return False
 
         return False if stack else True
+
+# 2021.03.20 只要有思路，就不难写
+class Solution1:
+    def isValid(self, s: str) -> bool:
+        bracket_map = {'(': ')', '[': ']', '{': '}'}
+        stack = []
+        for i in s:
+            if i in bracket_map:
+                stack.append(i)
+            else:
+                if not stack: return False
+                top = stack.pop()
+                if bracket_map[top] != i:
+                    return False
+        return False if stack else True
+
+# 官方解法，可以先验证长度
+class Solution2:
+    def isValid(self, s: str) -> bool:
+        if len(s) % 2 == 1:
+            return False
+        
+        pairs = {
+            ")": "(",
+            "]": "[",
+            "}": "{",
+        }
+        stack = list()
+        for ch in s:
+            if ch in pairs:
+                if not stack or stack[-1] != pairs[ch]:
+                    return False
+                stack.pop()
+            else:
+                stack.append(ch)
+        
+        return not stack

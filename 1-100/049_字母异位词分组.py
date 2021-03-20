@@ -96,3 +96,11 @@ class Solution6:
         return list(mp.values())
 
 # 时间复杂度：O(n(k+∣Σ∣))
+
+# 2021.03.20 元组可以作为键
+class Solution7:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        ans = collections.defaultdict(list)
+        for s in strs:
+            ans[tuple(sorted(s))].append(s)
+        return list(ans.values())
