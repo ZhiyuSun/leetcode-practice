@@ -65,3 +65,20 @@ class Solution:
             if len(back) < len(front):
                 front, back = back, front
         return -1
+
+
+# 2021.03.21 自己写出来了
+class Solution2:
+    def minMutation(self, start, end, bank):
+        queue = [(start, 0)]
+        bank = set(bank)
+        while queue:
+            cur, count = queue.pop(0)
+            if cur == end: return count
+            for i in range(0, len(start)):
+                for ch in ['A', 'C', 'G', 'T']:
+                    new = cur[0:i] + ch + cur[i+1:]
+                    if new in bank:
+                        queue.append((new, count+1))
+                        bank.remove(new)
+        return -1

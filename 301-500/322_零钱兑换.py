@@ -36,3 +36,30 @@ class Solution2:
 
 
 # ps. JAVA代码真是劝退
+
+
+# 2021.03.21 错误的方法，零钱不一定有1
+class Solutionerror:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        coins.sort()
+        count = 0
+        for i in coins[::-1]:
+            while amount - i >= 0:
+                amount -= i
+                count += 1
+                print(amount)
+            if amount == 0:
+                return count
+        if amount > 0:
+            return -1
+
+# 2021.03.21 重温正解
+class Solution4:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        dp = [float('inf')] * (amount + 1)
+        dp[0] = 0
+        
+        for coin in coins:
+            for x in range(coin, amount + 1):
+                dp[x] = min(dp[x], dp[x - coin] + 1)
+        return dp[amount] if dp[amount] != float('inf') else -1 

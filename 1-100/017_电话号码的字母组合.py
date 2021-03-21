@@ -127,3 +127,33 @@ class Solutiononeline:
 
         groups = (phoneMap[digit] for digit in digits)
         return ["".join(combination) for combination in itertools.product(*groups)]
+
+# 2021.03.21 DFS解法
+class Solution5:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return list()
+        
+        phoneMap = {
+            "2": "abc",
+            "3": "def",
+            "4": "ghi",
+            "5": "jkl",
+            "6": "mno",
+            "7": "pqrs",
+            "8": "tuv",
+            "9": "wxyz",
+        }
+
+        def _dfs(combination, index):
+            if index == len(digits):
+                res.append(combination)
+                return
+            digit = digits[index]
+            for letter in phoneMap[digit]:
+                _dfs(combination+letter, index + 1)
+
+        combination = ''
+        res = []
+        _dfs(combination, 0)
+        return res

@@ -89,3 +89,19 @@ class Solution4:
         for k in range(len(nums) + 1):
             _dfs(0, [], k)
         return res
+
+# 2021.03.21 另一种解法，我感觉自己崩溃了，这种更像迭代法
+class Solution5:
+    def subsets(self, nums):		
+        if not nums:
+            return []
+        res = []
+        n = len(nums)
+
+        def helper(idx, temp_list):
+            res.append(temp_list)
+            for i in range(idx, n):
+                helper(i + 1, temp_list + [nums[i]])
+
+        helper(0, [])
+        return res

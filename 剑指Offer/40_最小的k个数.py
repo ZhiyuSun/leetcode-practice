@@ -120,3 +120,27 @@ class Solution5:
             return list()
         self.randomized_selected(arr, 0, len(arr) - 1, k)
         return arr[:k]
+
+# 2021.03.21 又忘记了api
+class Solution6:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        heap = []
+        for i in range(0, len(arr)-k):
+            heapq.heappush(heap, arr[i])
+        res = []
+        for i in range(len(arr)-k, len(arr)):
+            heapq.heappush(heap, arr[i])
+            res.append(heapq.heappop(heap))
+        return res
+
+# 2021.03.21 磕磕绊绊
+class Solution7:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        if k == 0: return []
+        res =[-i for i in arr[:k]]
+        heapq.heapify(res)
+        for i in arr[k:]:
+            if -i > res[0]:
+                heapq.heappop(res)
+                heapq.heappush(res, -i)
+        return [-i for i in res]
