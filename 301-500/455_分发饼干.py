@@ -64,3 +64,38 @@ class Solution2:
                     gi += 1
                 si += 1
             return count
+
+
+# 2021.03.23 都不如以前了，Python耗时太多
+class Solution3:
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:
+        g.sort()
+        s.sort()
+        res = 0
+        used = [0] * len(g)
+        for i in s:
+            for j in range(len(g)):
+                if used[j] == 1:
+                    continue
+                if g[j] <= i:
+                    res += 1
+                    used[j] = 1
+                    break
+        return res
+
+# 2021.03.23 参考了以前的做法，只要有思路，就把思路具象化，双指针yyds
+class Solution4:
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:
+        if not s or not g: return 0
+        g.sort()
+        s.sort()
+        i = j = res = 0
+        if s[-1] < g[0]: return res
+        while i < len(s) and j < len(g):
+            if s[i] >= g[j]:
+                res += 1
+                i += 1
+                j += 1
+            else:
+                i += 1
+        return res

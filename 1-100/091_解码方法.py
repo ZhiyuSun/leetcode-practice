@@ -135,3 +135,52 @@ class Solutionc:
         if 10 <=int(s[0:2])<=26:
             cnt += self.numDecodings(s[2:])
         return cnt
+
+# 2021.03.22 DFS超时
+class Solution4:
+    def __init__(self):
+        self.count = 0
+
+    def numDecodings(self, s: str) -> int:
+        def _dfs(rest):
+            if rest == '':
+                self.count += 1
+                return
+            if rest.startswith('0'):
+                return
+            _dfs(rest[1:])
+            if len(rest) >= 2:
+                if int(rest[0:2]) <=26:
+                    _dfs(rest[2:])
+        _dfs(s)
+        return self.count
+
+# 2021.03.22 重温超哥解法，DFS+缓存
+class Solution5:
+    @functools.lru_cache(None)
+    def numDecodings(self, s: str) -> int:
+        if len(s) == 0: return 1
+        cnt = 0
+        if s[0] != '0':
+            cnt += self.numDecodings(s[1:])
+        if 10 <=int(s[0:2])<=26:
+            cnt += self.numDecodings(s[2:])
+        return cnt
+
+# 2021.03.22 磕磕绊绊
+class Solution6:
+    def numDecodings(self, s: str) -> int:
+        if s.startswith('0'): return 0
+        if len(s) == 1: return 1
+        dp = [0] * len(s)
+        dp[0] = 1
+        if s[1] != '0':
+            dp[1] += 1
+        if 10 <= int(s[:2]) <= 26:
+            dp[1] += 1
+        for i in range(2, len(s)):
+            if s[i] != '0':
+                dp[i] += dp[i-1]
+            if 10<= int(s[i-1] + s[i]) <= 26:
+                dp[i] += dp[i-2]
+        return dp[-1]

@@ -31,3 +31,32 @@ class Solution:
                 left = x + 1
         
         return False
+
+# 2021.03.23 误打误撞，不明不白的二分法
+class Solution2:
+    def isPerfectSquare(self, num: int) -> bool:
+        l, r = 0, num
+        while l <= r:
+            mid = (l + r) // 2
+            if mid * mid == num:
+                return True
+            elif mid * mid < num:
+                l = mid +1
+            else:
+                r = mid -1
+        return False
+
+# 2021.03.23 优化后
+class Solution3:
+    def isPerfectSquare(self, num: int) -> bool:
+        if num < 2: return True
+        l, r = 0, num //2
+        while l <= r:
+            mid = (l + r) // 2
+            if mid * mid == num:
+                return True
+            elif mid * mid < num:
+                l = mid +1
+            else:
+                r = mid -1
+        return False

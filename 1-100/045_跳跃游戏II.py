@@ -14,7 +14,6 @@
 """
 from typing import List
 
-# 超出时间限制
 class Solution:
     def jump(self, nums: List[int]) -> int:
         position = len(nums) - 1
@@ -63,3 +62,28 @@ class Solution2:
         return step
 # 有点难以理解
 # 思想就一句话：每次在上次能跳到的范围（end）内选择一个能跳的最远的位置（也就是能跳到max_far位置的点）作为下次的起跳点 ！
+
+# 2021.03.23 我自己的动态规划，居然做出来了，虽然有点蹩脚
+class Solution3:
+    def jump(self, nums: List[int]) -> int:
+        dp = [float('inf')] * len(nums)
+        dp[0] = 0
+        for i in range(len(nums)):
+            max_index = i + nums[i]
+            for j in range(i, max_index+1):
+                if j < len(nums):
+                    dp[j] = min(dp[j], dp[i] + 1)
+        return dp[-1]
+
+# 2021.03.23 另一种解法，从结尾开始，每次找到能走到的最远的点
+class Solution4:
+    def jump(self, nums: List[int]) -> int:
+        position = len(nums) - 1
+        steps = 0
+        while position > 0:
+            for i in range(position):
+                if i + nums[i] >= position:
+                    position = i
+                    steps += 1
+                    break
+        return steps

@@ -100,3 +100,52 @@ class Solution2:
                         return False
 
         return True
+
+# 2021.03.23 这题我写复杂了，但没想到曾经的自己也是这么写的，太没长进了
+class Solution3:
+    def lemonadeChange(self, bills: List[int]) -> bool:
+        res = [0, 0]
+        for i in bills:
+            if i == 5:
+                res[0] += 1
+            if i == 10:
+                if res[0] >= 1:
+                    res[0] -= 1
+                    res[1] += 1
+                else:
+                    return False
+            if i == 20:
+                cur = 20
+                if res[1] >= 1:
+                    res[1] -= 1
+                    if res[0] >= 1:
+                        res[0] -= 1
+                    else:
+                        return False
+                else:
+                    if res[0] >= 3:
+                        res[0] -= 3
+                    else:
+                        return False
+        return True
+
+# 2021.03.23 重温官方解法
+class Solution4:
+    def lemonadeChange(self, bills):
+        five = ten = 0
+        for bill in bills:
+            if bill == 5:
+                five += 1
+            elif bill == 10:
+                if not five: return False
+                five -= 1
+                ten += 1
+            else:
+                if ten and five:
+                    ten -= 1
+                    five -= 1
+                elif five >= 3:
+                    five -= 3
+                else:
+                    return False
+        return True

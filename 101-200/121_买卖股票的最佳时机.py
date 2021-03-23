@@ -48,3 +48,23 @@ class Solution2:
             max_profit = max(max_profit, price-min_profit)
             min_profit = min(price, min_profit)
         return max_profit
+
+# 2021.03.23 超出时间限制，我废了
+class Solution3:
+    def maxProfit(self, prices: List[int]) -> int:
+        if len(prices) <= 1: return 0
+        res = 0
+        for i in range(len(prices)-1):
+            for j in range(i+1, len(prices)):
+                res = max(prices[j]-prices[i], res)
+        return res
+
+# 2021.03.23 一次遍历就行。按正常的思路也是要一次遍历，把思路转换成算法就行
+class Solution4:
+    def maxProfit(self, prices: List[int]) -> int:
+        max_profit = 0
+        min_profit = float('inf')
+        for i in prices:
+            max_profit = max(max_profit, i-min_profit)
+            min_profit = min(min_profit, i)
+        return max_profit

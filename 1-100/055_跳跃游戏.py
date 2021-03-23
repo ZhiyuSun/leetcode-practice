@@ -22,3 +22,27 @@ class Solution:
             if nums[i] + i >= end_reachable:
                 end_reachable = i
         return end_reachable == 0
+
+# 2021.03.23 我的蹩脚的方法，但是有了思路，就能做出来
+class Solution2:
+    def canJump(self, nums: List[int]) -> bool:
+        if len(nums) <= 1: return True
+        max_index = 0
+        size = len(nums)
+        for i in range(len(nums)-1):
+            if i > max_index:
+                return False
+            if i + nums[i] >= size -1:
+                return True
+            max_index = max(max_index, i+nums[i])
+        return False
+
+# 2021.03.23 官方解法，从后往前，真是精彩
+class Solution3:
+    def canJump(self, nums: List[int]) -> bool:
+        if not nums: return False
+        end_reachable = len(nums) - 1
+        for i in range(len(nums)-1, -1 , -1):
+            if nums[i] + i >= end_reachable:
+                end_reachable = i
+        return end_reachable == 0

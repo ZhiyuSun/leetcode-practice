@@ -24,3 +24,12 @@ class Solution:
             if prices[i] > prices[i-1]:
                 res += prices[i] - prices[i-1]
         return res
+
+# 2021.03.23 小菜一碟
+class Solution2:
+    def maxProfit(self, prices: List[int]) -> int:
+        res = 0
+        for i in range(1, len(prices)):
+            if prices[i] > prices[i-1]:
+                res += prices[i] - prices[i-1]
+        return res
