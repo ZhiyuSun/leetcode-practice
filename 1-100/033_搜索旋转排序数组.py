@@ -35,4 +35,26 @@ class Solution:
                     l = mid + 1
                 else:
                     r = mid - 1
+        return -1
+
+# 2021.03.24 没做出来，官方解法。其实就是变体的二分法，判断两边哪个是递增的数组
+class Solution2:
+    def search(self, nums: List[int], target: int) -> int:
+        if not nums:
             return -1
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = (l + r) // 2
+            if nums[mid] == target:
+                return mid
+            if nums[0] <= nums[mid]:
+                if nums[0] <= target < nums[mid]:
+                    r = mid - 1
+                else:
+                    l = mid + 1
+            else:
+                if nums[mid] < target <= nums[len(nums) - 1]:
+                    l = mid + 1
+                else:
+                    r = mid - 1
+        return -1

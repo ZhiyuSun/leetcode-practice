@@ -31,3 +31,20 @@ class Solution1:
         for i in nums[1: -1]:
             a, b, c, d = b, max(b, a+i), d, max(d, c+i)
         return max(b, a+nums[-1], d)
+
+
+# 2021.03.24 去掉首来一遍，去掉尾来一遍
+class Solution2:
+    def rob(self, nums: List[int]) -> int:
+        if not nums: return 0
+        if len(nums) == 1: return nums[0]
+        return max(self.rob_2(nums[1:]), self.rob_2(nums[:-1]))
+
+    def rob_2(self, nums):
+        if not nums: return 0
+        if len(nums) == 1: return nums[0]
+        if len(nums) == 2: return max(nums[0], nums[1])
+        nums[1] = max(nums[0], nums[1])
+        for i in range(2, len(nums)):
+            nums[i] = max(nums[i-1], nums[i-2] + nums[i])
+        return nums[-1]

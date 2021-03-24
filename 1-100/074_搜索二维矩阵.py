@@ -84,3 +84,67 @@ class Solution2:
             else:
                 row += 1
         return False
+
+
+# 2021.03.24 我的解法，报错了
+class Solution3:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        m = len(matrix[0])
+        n = len(matrix)
+        l, r, mid = 0, n, 0
+        while l <= r:
+            print(l, r)
+            mid = (l + r) // 2
+            if matrix[mid][0] == target:
+                return True
+            elif matrix[mid][0] < target:
+                l = mid + 1
+            else:
+                r = mid - 1
+        l, r = 0, m
+        while l <= r:
+            mid2 = (l + r) // 2
+            if matrix[mid][mid2] == target:
+                return True
+            elif matrix[mid][mid2] < target:
+                l = mid2 + 1
+            else:
+                r = mid2 - 1
+        return False
+
+# 2021.03.24 虚拟下标也太秀了
+class Solution4:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        m = len(matrix)
+        if m == 0:
+            return False
+        n = len(matrix[0])
+        
+        #二分查找
+        left, right = 0, m * n - 1
+        while left <= right:
+                pivot_idx = (left + right) // 2
+                pivot_element = matrix[pivot_idx // n][pivot_idx % n]
+                if target == pivot_element:
+                    return True
+                else:
+                    if target < pivot_element:
+                        right = pivot_idx - 1
+                    else:
+                        left = pivot_idx + 1
+        return False
+
+# 2021.03.24 移位法更秀
+class Solution5:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        if not (len(matrix) and len(matrix[0])):
+            return False
+        row, col = 0, len(matrix[0])-1
+        while row <= len(matrix)-1 and col >= 0:
+            curr = matrix[row][col]
+            if curr == target: return True
+            if target < curr:
+                col -= 1
+            else:
+                row += 1
+        return False

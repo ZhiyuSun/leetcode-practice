@@ -17,3 +17,21 @@ class Solution:
         for i in range(1, len(nums)):
             dp[i] = max(nums[i], dp[i-1]+nums[i])
         return max(dp)
+
+# 2021.03.24 我自己想出了另一种思路
+class Solution2:
+    def maxSubArray(self, nums: List[int]) -> int:
+        for i in range(1, len(nums)):
+            if nums[i-1] > 0:
+                nums[i] += nums[i-1]
+        return max(nums)
+
+# 2021.03.24 变体
+class Solution3:
+    def maxSubArray(self, nums: List[int]) -> int:
+        res = nums[0]
+        for i in range(1, len(nums)):
+            if nums[i-1] > 0:
+                nums[i] += nums[i-1]
+            res = max(res, nums[i])
+        return res

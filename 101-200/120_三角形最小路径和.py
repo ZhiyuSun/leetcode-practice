@@ -59,3 +59,27 @@ class Solution2:
 
 # 2020.08.25
 # 重温这道题，两个要点：1 用原数组；2 自下而上
+
+
+# 2021.03.24 自己摸索出来了，一些边界条件处理不好
+class Solution3:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        for i in range(1, len(triangle)):
+            for j in range(len(triangle[i])):
+                if j == 0:
+                    triangle[i][j] += triangle[i-1][j]
+                else:
+                    if j == len(triangle[i]) - 1:
+                        triangle[i][j] += triangle[i-1][j-1]
+                    else:
+                        triangle[i][j] += min(triangle[i-1][j], triangle[i-1][j-1])
+        return min(triangle[-1])
+
+# 2021.03.24 自下而上会清楚很多
+class Solution4:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        dp = triangle
+        for i in range(len(triangle)-2, -1, -1):
+            for j in range(len(triangle[i])):
+                dp[i][j] += min(dp[i+1][j], dp[i+1][j+1])
+        return dp[0][0]

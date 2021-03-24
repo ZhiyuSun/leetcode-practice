@@ -73,7 +73,7 @@ class Solutionself:
             nums[i] = max(nums[i-1], nums[i-2]+nums[i])
         return nums[-1]
 
-# 2020.02.25 字节面试遇到了，我写的搓搓的
+# 2021.02.25 字节面试遇到了，我写的搓搓的
 class Solution4:
     def rob(self, nums: List[int]) -> int:
         if not nums: return 0
@@ -85,3 +85,14 @@ class Solution4:
         for i in range(2, len(nums)):
             dp[i] = max(dp[i-1], dp[i-2] + nums[i])
         return dp[-1]
+
+# 2021.03.24 重温这道题，还是写的慢
+class Solution5:
+    def rob(self, nums: List[int]) -> int:
+        if not nums: return 0
+        if len(nums) == 1: return nums[0]
+        if len(nums) == 2: return max(nums[0], nums[1])
+        nums[1] = max(nums[0], nums[1])
+        for i in range(2, len(nums)):
+            nums[i] = max(nums[i-1], nums[i-2] + nums[i])
+        return nums[-1]
