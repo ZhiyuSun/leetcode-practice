@@ -68,3 +68,13 @@ class Solution4:
             prev = cur
             cur = tmp
         return prev
+
+# 2021.03.25 极简写法，但是很容易出错
+class Solution5:
+    def reverseList(self, head: ListNode) -> ListNode:
+        cur, prev = head, None
+        while cur:
+            cur.next, prev, cur = prev, cur, cur.next
+            # 这句代码中是等号右边的值全部都保存了才会一次性赋值给等号左边的变量
+        return prev
+

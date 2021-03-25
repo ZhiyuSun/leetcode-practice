@@ -73,3 +73,21 @@ class Solution1:
             if i >= k - 1:
                 res.append(nums[window[0]])
         return res
+
+# 2021.03.25 学习覃超老师的写法，不过他的做法好难理解。。
+class Solution2:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        if not nums: return []
+        window, res = [], []
+        for i, x in enumerate(nums):
+            if i >= k and window[0] <= i-k:
+                window.pop(0)
+            # 逐渐往左去压，保证左边拿到的永远是最大值
+            # 把x左边比它小的都推出去，年轻的人都被淘汰
+            while window and nums[window[-1]] <= x:
+                window.pop()
+            window.append(i)
+            if i >= k-1:
+                res.append(nums[window[0]])
+        return res
+        # 注意：window存储的是索引
