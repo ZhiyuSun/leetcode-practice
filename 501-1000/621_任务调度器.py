@@ -43,3 +43,17 @@ class Solution(object):
         
         # 如果结果比任务数量少，则返回总任务数
         return res if res >= length else length
+
+# 2021.03.29 看不懂，直奔题解
+import collections
+from typing import List
+class Solution2:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        freq = collections.Counter(tasks)
+
+        # 最多的执行次数
+        maxExec = max(freq.values())
+        # 具有最多执行次数的任务数量
+        maxCount = sum(1 for v in freq.values() if v == maxExec)
+
+        return max((maxExec - 1) * (n + 1) + maxCount, len(tasks))

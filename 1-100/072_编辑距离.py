@@ -82,3 +82,21 @@ class Solution1:
                 D[i][j] = min(left, down, left_down)
         
         return D[n][m]
+
+# 2021.03.29 本来很简单一题，自己把自己绕晕了
+class Solution2:
+    def minDistance(self, word1: str, word2: str) -> int:
+        m = len(word1)
+        n = len(word2)
+        dp = [[0] * (m+1) for _ in range(n+1)]
+        for i in range(1, m+1):
+            dp[0][i] = i
+        for j in range(1, n+1):
+            dp[j][0] = j
+        for j in range(1, n+1):
+            for i in range(1, m+1):
+                if word2[j-1] == word1[i-1]:
+                    dp[j][i] = dp[j-1][i-1]
+                else:
+                    dp[j][i] = min(dp[j-1][i],dp[j][i-1],dp[j-1][i-1]) + 1
+        return dp[-1][-1]

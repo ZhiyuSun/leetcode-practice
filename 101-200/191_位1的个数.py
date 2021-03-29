@@ -24,3 +24,12 @@ class Solution2:
             n &= (n - 1)
         return sum
 
+
+# 2021.03.29 学会了位运算
+class Solution3:
+    def hammingWeight(self, n: int) -> int:
+        res = 0
+        while n != 0:
+            n = n & (n-1)
+            res += 1
+        return res

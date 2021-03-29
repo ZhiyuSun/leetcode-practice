@@ -195,3 +195,74 @@ class Solution5:
                     count += 1
                     _dfs(i, j)
         return count
+
+# 2021.03.28 瞟了一眼答案，自己做出来了
+class Solution6:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        direction = [(1,0),(0,1),(-1,0),(0,-1)]
+        row = len(grid)
+        col = len(grid[0])
+        count = 0
+        def _dfs(i, j):
+            if not (0 <= i < row and 0 <= j < col):
+                return
+            if grid[i][j] == '0':
+                return
+            if grid[i][j] == '1':
+                grid[i][j] = '0'
+            for m, n in direction:
+                _dfs(i+m, j+n)
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == '1':
+                    count += 1
+                    _dfs(i, j)
+        return count
+
+
+# 2021.03.29 我写的BFS，但是超时了，原因是写错了
+class Solution7:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        direction = [(1,0),(0,1),(-1,0),(0,-1)]
+        row = len(grid)
+        col = len(grid[0])
+        count = 0
+        queue = []
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == '1':
+                    count += 1
+                    queue.append((i,j))
+                    while queue:
+                        a, b = queue.pop(0)
+                        grid[a][b] = '0'
+                        for m, n in direction:
+                            if 0 <= a+m < row and 0 <= b+n < col and grid[a+m][b+n] == '1':
+                                print(a+m, b+n)
+                                # 这里没有立刻置为0，就导致前面循环的时候，多放进去了很多个进了queue里
+                                queue.append((a+m, b+n))
+        return count
+
+
+# 2021.03.29 我写的BFS改进版
+class Solution8:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        direction = [(1,0),(0,1),(-1,0),(0,-1)]
+        row = len(grid)
+        col = len(grid[0])
+        count = 0
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == '1':
+                    count += 1
+                    # 采取贪心的原则，这里能置为0就先置为0
+                    grid[i][j] = '0'
+                    queue = [(i, j)]
+                    while queue:
+                        a, b = queue.pop(0)
+                        for m, n in direction:
+                            if 0 <= a+m < row and 0 <= b+n < col and grid[a+m][b+n] == '1':
+                                queue.append((a+m, b+n))
+                                grid[a+m][b+n] = '0'
+
+        return count

@@ -79,3 +79,5 @@ class Trie:
 # obj.insert(word)
 # param_2 = obj.search(word)
 # param_3 = obj.startsWith(prefix)
+
+# 2021.03.29 温习一遍

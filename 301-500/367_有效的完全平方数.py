@@ -60,3 +60,17 @@ class Solution3:
             else:
                 r = mid -1
         return False
+
+# 2021.03.29 温习一下，自己做的
+class Solution4:
+    def isPerfectSquare(self, num: int) -> bool:
+        l, r = 0, num
+        while l <= r:
+            mid = (l + r) // 2
+            if mid * mid == num:
+                return True
+            if mid * mid < num:
+                l = mid + 1
+            else:
+                r = mid -1
+        return False

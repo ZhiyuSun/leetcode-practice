@@ -79,3 +79,64 @@ class Solution:
                     return True
         
         return False
+
+
+# 2021.03.29 我的做法，再次失败了，虽然能找到，但是没法中断程序
+class Solution1:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        direction = [(1,0), (-1,0), (0, 1), (0, -1)]
+        row = len(board)
+        col = len(board[0])
+        visited = set()
+        def _dfs(cur, i, j):
+            print(cur, i,j)
+            if cur == word:
+                return True
+            if not word.startswith(cur):
+                return False
+            for m, n in direction:
+                if not (0<=i+m<row and 0<=j+n<col):
+                    continue
+                if (i+m, j+n) in visited:
+                    continue
+                visited.add((i+m, j+n))
+                _dfs(cur + board[i+m][j+n], i+m, j+n)
+                visited.remove((i+m, j+n))
+        for k in range(0, row):
+            for l in range(0, col):
+                visited.add((k, l))
+                if _dfs(board[k][l], k, l):
+                   return True
+        return False
+
+# 2021.03.29 重新参考了官方的解法，发现了其中的关键
+# 平时做递归的时候，不会主动返回数据，是深度优先的思路，
+# 但是这道题，只要能找到结果，就可以直接返回，需要一个辅助的result变量
+class Solution2:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        direction = [(1,0), (-1,0), (0, 1), (0, -1)]
+        row = len(board)
+        col = len(board[0])
+        visited = set()
+        def _dfs(cur, i, j):
+            if cur == word:
+                return True
+            if not word.startswith(cur):
+                return False
+            visited.add((i, j))
+            result = False
+            for m, n in direction:
+                if not (0<=i+m<row and 0<=j+n<col):
+                    continue
+                if (i+m, j+n) in visited:
+                    continue
+                if _dfs(cur + board[i+m][j+n], i+m, j+n):
+                    result = True
+                    break
+            visited.remove((i, j))
+            return result
+        for k in range(0, row):
+            for l in range(0, col):
+                if _dfs(board[k][l], k, l):
+                   return True
+        return False

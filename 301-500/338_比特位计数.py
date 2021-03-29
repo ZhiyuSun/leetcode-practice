@@ -40,3 +40,25 @@ class Solution1:
             bits.append(bits[i - highBit] + 1)
         return bits
 
+
+# 2021.03.29 稍稍有点绕，理解一下就是要减去最近的2的幂
+class Solution2:
+    def countBits(self, num: int) -> List[int]:
+        bits = [0]
+        highBit = 0
+        for i in range(1, num + 1):
+            if i & (i - 1) == 0:
+                highBit = i
+            bits.append(bits[i - highBit] + 1)
+        return bits
+
+# 2021.03.29 精彩的动态规划
+class Solution3:
+    def countBits(self, num: int) -> List[int]:
+        bits = [0]
+        for i in range(1, num + 1):
+            bits.append(bits[i&(i-1)] + 1)
+        return bits
+
+# i&(i-1)就是去掉末尾的1
+
