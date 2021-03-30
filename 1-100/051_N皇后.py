@@ -69,3 +69,5 @@ class Solution2:
         res = []
         backtrack(0, [])
         return [['.'*i + 'Q' + '.'*(n-i-1) for i in l] for l in res]
+
+# 2021.03.30 要额外记录track的路径

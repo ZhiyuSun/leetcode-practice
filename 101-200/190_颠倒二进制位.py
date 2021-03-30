@@ -35,3 +35,5 @@ class Solution:
 class Solution2:
     def reverseBits(self, n: int) -> int:
         return int("0b"+("0"*32+bin(n)[2:])[-32:][::-1], base=2)
+
+# 2021.03.30 这题没看懂

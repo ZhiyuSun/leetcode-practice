@@ -184,3 +184,87 @@ class Solution6:
             if 10<= int(s[i-1] + s[i]) <= 26:
                 dp[i] += dp[i-2]
         return dp[-1]
+
+
+# 2021.03.30 自己做出来了，这道题的测试用例比较刁钻，非常适合微软出
+class Solution7:
+    def numDecodings(self, s: str) -> int:
+        if not s: return 0
+        if s[0] == '0': return 0
+        dp = [0] * len(s)
+        dp[0] = 1
+        if len(s) == 1:
+            return 1
+        if s[1] != '0':
+            dp[1] += dp[0]
+            if 10 <= int(s[0:2]) <= 26:
+                dp[1] += 1
+        else:
+            if int(s[0]) <= 2:
+                dp[1] = 1
+            else:
+                return 0
+
+        for i in range(2, len(s)):
+            if s[i] != '0':
+                dp[i] += dp[i-1]
+                if 10 < int(s[i-1:i+1]) <= 26:
+                    dp[i] += dp[i-2]
+            else:
+                if 1 <= int(s[i-1]) <=2:
+                    dp[i] += dp[i-2]
+                else:
+                    return 0
+        print(dp)
+        return dp[-1]          
+
+
+# 测试用例
+# "12"
+# "226"
+# "0"
+# "06"
+
+# 2021.03.30 lru_cache的做法真的是绝了
+class Solution8:
+    @lru_cache(None)
+    def numDecodings(self, s: str) -> int:
+        if len(s) == 0: return 1
+        cnt = 0
+        if s[0] != '0':
+            cnt += self.numDecodings(s[1:])
+        if 10 <=int(s[0:2])<=26:
+            cnt += self.numDecodings(s[2:])
+        return cnt
+
+
+# 2021.03.30 综合官方的解法，我自己的优化版
+class Solution9:
+    def numDecodings(self, s: str) -> int:
+        dp = [0] * len(s)
+        # 考虑第一个字母
+        if s[0] == "0":
+            return 0
+        else:
+            dp[0] = 1
+        if len(s) == 1: return dp[-1]
+        # 考虑第二个字母
+        if s[1] != "0":
+            dp[1] += 1
+        if 10 <= int(s[:2]) <= 26:
+            dp[1] += 1
+        for i in range(2, len(s)):
+            # 当出现连续两个0
+            if s[i - 1] + s[i] == "00": return 0
+            # 考虑单个字母
+            if s[i] != "0":
+                dp[i] += dp[i - 1]
+                if 10 <= int(s[i - 1] + s[i]) <= 26:
+                    dp[i] += dp[i - 2]
+            # 考虑两个字母
+            else:
+                if 1 <= int(s[i-1]) <= 2:
+                     dp[i] += dp[i - 2]
+                else:
+                    return 0
+        return dp[-1]

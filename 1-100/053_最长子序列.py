@@ -35,3 +35,11 @@ class Solution3:
                 nums[i] += nums[i-1]
             res = max(res, nums[i])
         return res
+
+# 2021.03.30 只要自己思路清晰就没事
+class Solution4:
+    def maxSubArray(self, nums: List[int]) -> int:
+        if len(nums) == 1: return nums[0]
+        for i in range(1, len(nums)):
+            nums[i] = max(nums[i-1]+nums[i], nums[i])
+        return max(nums)

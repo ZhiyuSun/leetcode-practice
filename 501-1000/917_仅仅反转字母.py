@@ -43,3 +43,15 @@ class Solution1(object):
                 ans.append(x)
         
         return "".join(ans)
+
+# 2021.03.30 双指针和借助栈，两种方法都很6
+class Solution2:
+    def reverseOnlyLetters(self, S: str) -> str:
+        letters = [c for c in S if c.isalpha()]
+        ans = []
+        for c in S:
+            if c.isalpha():
+                ans.append(letters.pop())
+            else:
+                ans.append(c)
+        return "".join(ans)

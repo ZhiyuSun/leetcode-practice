@@ -69,3 +69,24 @@ class Solutionmy:
             else:
                 return isPalindrome(s[low + 1:high]) or isPalindrome(s[low:high - 1])
         return True
+
+# 2021.03.30 贪心+双指针
+class Solution2:
+    def validPalindrome(self, s: str) -> bool:
+        def checkPalindrome(low, high):
+            i, j = low, high
+            while i < j:
+                if s[i] != s[j]:
+                    return False
+                i += 1
+                j -= 1
+            return True
+
+        low, high = 0, len(s) - 1
+        while low < high:
+            if s[low] == s[high]: 
+                low += 1
+                high -= 1
+            else:
+                return checkPalindrome(low + 1, high) or checkPalindrome(low, high - 1)
+        return True

@@ -68,3 +68,24 @@ class Solution3:
                 d[loc] = n
         return len(d)
 
+
+# 2021.03.30 自己温习了一下之前的思路做出来了，但是用时过多
+class Solution4:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = [1] * len(nums)
+        for i in range(len(nums)):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[j] + 1, dp[i])
+        return max(dp)
+
+
+# 2021.03.30 趁热打铁
+class Solution5:
+    def lengthOfLIS(self, nums:List[int]) -> int:
+        dp = [1] * len(nums)
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[j]+1, dp[i])
+        return max(dp)

@@ -38,3 +38,14 @@ class Solution1:
             if count[s[i]] == 1:
                 return i
         return -1 
+
+# 2020.03.30 我要好好反省一下自己，这都不会了
+class Solution2:
+    def firstUniqChar(self, s: str) -> int:
+        count = defaultdict(int)
+        for i in s:
+            count[i] += 1
+        for i in range(len(s)):
+            if count[s[i]] == 1:
+                return i
+        return -1 

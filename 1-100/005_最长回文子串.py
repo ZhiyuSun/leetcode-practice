@@ -123,3 +123,19 @@ class Solution4:
             i -= 1
             j += 1
         return s[i + 1:j], j - i - 1
+
+# 2021.03.30 使用动态规划也能解决
+class Solution5:
+    def longestPalindrome(self, s: str) -> str:        
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        max_len = 0
+        res = ''
+        for j in range(n):
+            for i in range(0, j+1):
+                if s[i] == s[j] and (j-i<2 or dp[i+1][j-1]):
+                    dp[i][j] = True
+                    if j-i+1 > max_len:
+                        max_len = j-i+1
+                        res = s[i:j+1]
+        return res

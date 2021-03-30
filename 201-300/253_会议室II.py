@@ -56,4 +56,15 @@ class Solution:
 # 接下来是 最小堆 占用的时间。在最坏的情况下，全部 NN 个会议都会互相冲突。在任何情况下，我们都要向堆执行 NN 次插入操作。在最坏的情况下，我们要对堆进行 NN 次查找并删除最小值操作。总的时间复杂度为 (NlogN)，因为查找并删除最小值操作只消耗 O(logN) 的时间。
 # 空间复杂度：O(N) 。额外空间用于建立 最小堆 。在最坏的情况下，堆需要容纳全部 NN 个元素。因此空间复杂度为 O(N) 。
 
-
+# 2021.03.20 磕磕绊绊，总算写出来了
+class Solution1:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key=lambda x: x[0])
+        arr = [intervals[0][1]]
+        heapq.heapify(arr)
+        for i in intervals[1:]:
+            if i[0] >= arr[0]:
+                heapq.heappop(arr)
+            heapq.heappush(arr, i[1])
+            
+        return len(arr)
