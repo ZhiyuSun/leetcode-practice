@@ -93,3 +93,11 @@ class Solution7:
         for _ in range(2, n+1):
             a, b = b, a+b
         return a
+
+# 2021.04.03 再简洁一点
+class Solution8:
+    def climbStairs(self, n: int) -> int:
+        a, b = 1, 1
+        for _ in range(n):
+            a, b = b, a+b
+        return a
