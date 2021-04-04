@@ -44,3 +44,15 @@ class Solution1:
 
 # 2021.03.09 终于知道为什么上次没提交了，这道题近乎弃疗
 
+
+# 2021.04.04 民间解法，清晰易懂
+class Solution2:
+    def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
+        res = []
+        people = sorted(people, key = lambda x: (-x[0], x[1]))
+        for p in people:
+            if len(res) <= p[1]:
+                res.append(p)
+            elif len(res) > p[1]:
+                res.insert(p[1], p)
+        return res
