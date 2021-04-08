@@ -44,3 +44,15 @@ class Solution3:
                 nums[i] = nums[j]
                 i += 1
         return i
+
+
+# 2021.04.08 温习一下，其实直接覆盖就行了
+class Solution4:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        i = 0
+        for j in range(len(nums)):
+            if nums[j] != val:
+                if i != j:
+                    nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+        return i

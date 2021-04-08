@@ -1,3 +1,7 @@
+"""
+给你二叉树的根节点 root ，返回它节点值的 前序 遍历。
+"""
+
 from typing import List
 
 # Definition for a binary tree node.

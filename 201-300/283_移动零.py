@@ -84,3 +84,28 @@ class Solution4:
         return nums
 
 # 经验总结：更优雅的做法是交换法，而不是覆盖法
+
+
+# 2021.04.08 我稍微愣了一会儿，还是写出来了
+class Solution5:
+    def moveZeroes(self, nums: List[int]) -> None:
+        if not nums:
+            return []
+        i, j = 0, 0
+        while j < len(nums):
+            if nums[j] != 0:
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+            j += 1
+
+
+# 2021.04.08 重温官方解法
+class Solution6:
+    def moveZeroes(self, nums: List[int]) -> None:
+        n = len(nums)
+        left = right = 0
+        while right < n:
+            if nums[right] != 0:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+            right += 1
