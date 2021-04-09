@@ -230,3 +230,55 @@ class Solution(object):
     # def sortArray(self, nums: List[int]) -> List[int]:
     #     self.heap_sort(nums)
     #     return nums
+
+
+# 2021.04.09 新的归并排序
+class Solution2:
+    def sortArray(self, nums):
+        def merge(left, right):
+            res = []
+            i = 0
+            j = 0
+            while i < len(left) and j < len(right):
+                if left[i] <= right[j]:
+                    res.append(left[i])
+                    i += 1
+                else:
+                    res.append(right[j])
+                    j += 1
+            res += left[i:]
+            res += right[j:]
+            return res
+        if len(nums) <= 1:
+            return nums
+        mid = len(nums) // 2
+        # 分
+        left = self.sortArray(nums[:mid])
+        right = self.sortArray(nums[mid:])
+        # 合并
+        return merge(left, right)
+
+
+# 2021.04.09 新的快速排序
+class Solution3:
+    def sortArray(self, nums):
+        n = len(nums)
+
+        def quick(left, right):
+            if left >= right:
+                return nums
+            pivot = left
+            i = left
+            j = right
+            while i < j:
+                while i < j and nums[j] > nums[pivot]:
+                    j -= 1
+                while i < j and nums[i] <= nums[pivot]:
+                    i += 1
+                nums[i], nums[j] = nums[j], nums[i]
+            nums[pivot], nums[j] = nums[j], nums[pivot]
+            quick(left, j - 1)
+            quick(j + 1, right)
+            return nums
+
+        return quick(0, n - 1)

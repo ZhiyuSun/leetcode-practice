@@ -36,7 +36,6 @@ class Solution:
 class Solution1:
     def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
         people.sort(key=lambda x: (-x[0], x[1]))
-        n = len(people)
         ans = list()
         for person in people:
             ans[person[1]:person[1]] = [person]
@@ -55,4 +54,13 @@ class Solution2:
                 res.append(p)
             elif len(res) > p[1]:
                 res.insert(p[1], p)
+        return res
+
+# 2021.04.09 我的解法，其实是背的思路
+class Solution3:
+    def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
+        people.sort(key=lambda x: (x[0], -x[1]), reverse=True)
+        res = []
+        for i in people:
+            res.insert(i[1], i)
         return res

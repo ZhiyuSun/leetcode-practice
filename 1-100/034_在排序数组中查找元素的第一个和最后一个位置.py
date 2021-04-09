@@ -63,3 +63,16 @@ class Solution2:
 							return mid
 			return -1
 		return [find(True), find(False)]
+
+# 2021.04.09 我的做法
+class Solution3:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        mi = ma = -1
+        for i in range(len(nums)):
+            if nums[i] == target:
+                if mi == -1:
+                    mi = i
+                ma = max(ma, i)
+        return [mi, ma]
+
+# 2021.04.09 排序数组可以用二分法
