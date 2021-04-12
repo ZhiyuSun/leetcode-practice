@@ -46,3 +46,15 @@ class Solution3:
             if nums[i] + i >= end_reachable:
                 end_reachable = i
         return end_reachable == 0
+
+
+# 2021.04.12 我在成长，我在变化，用到了最远距离的思路
+class Solution4:
+    def canJump(self, nums: List[int]) -> bool:
+        max_d = nums[0]
+        for i in range(len(nums)):
+            if i > max_d:
+                return False
+            if max_d >= len(nums) - 1:
+                return True
+            max_d = max(max_d, nums[i] + i)

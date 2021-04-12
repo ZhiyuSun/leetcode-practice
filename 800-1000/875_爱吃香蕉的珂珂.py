@@ -21,7 +21,7 @@ class Solution:
         return lo
 
 # 2021.03.13 自己做出来了
-class Solution:
+class Solution1:
     def minEatingSpeed(self, piles, H):
         def possible(k):
             return sum([(i-1) // k + 1 for i in piles]) <= H

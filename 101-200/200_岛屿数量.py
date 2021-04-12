@@ -266,3 +266,68 @@ class Solution8:
                                 grid[a+m][b+n] = '0'
 
         return count
+
+
+# 2021.04.12 不改变原数组，DFS
+class Solution9:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        def _dfs(i, j):
+            visited.add((i, j))
+            for m, n in direction:
+                if 0 <= i+m < row and 0 <= j+n < col and grid[i+m][j+n] == '1' and (i+m, j+n) not in visited:
+                    _dfs(i+m, j+n)
+
+        if not grid or not grid[0]: return 0
+        direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        row, col = len(grid), len(grid[0])
+        visited = set()
+        count = 0
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == '1' and (i, j) not in visited:
+                    count += 1
+                    _dfs(i, j)
+        return count
+
+# 2021.04.12 覃超老师的并查集的思路，还得继续深入研究
+class Solution10:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid or not grid[0]: return 0
+
+        uf = UnionFind2(grid)
+        direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        row, col = len(grid), len(grid[0])
+
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == '0':
+                    continue
+                for d in direction:
+                    nr, nc = i+d[0], j+d[1]
+                    if 0 <= nr < row and 0 <= nc < col and grid[nr][nc] == '1':
+                        uf.union(i*col+j, nr*col+nc)
+
+        return uf.count
+
+class UnionFind2:
+    def __init__(self, grid):
+        m, n = len(grid), len(grid[0])
+        self.count = 0
+        self.parent = [-1] * (m*n)
+        self.rank = [0] * (m*n)
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    self.parent[i*n+j] = i*n+j
+                    self.count += 1
+    def find(self, i):
+        if self.parent[i] != i:
+            self.parent[i] = self.find(self.parent[i])
+        return self.parent[i]
+
+    def union(self, x, y):
+        rootx = self.find(x)
+        rooty = self.find(y)
+        if rootx != rooty:
+            self.parent[rootx] = rooty
+            self.count -= 1

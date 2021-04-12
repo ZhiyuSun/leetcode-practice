@@ -83,3 +83,40 @@ class Solution4:
             for j in range(len(triangle[i])):
                 dp[i][j] += min(dp[i+1][j], dp[i+1][j+1])
         return dp[0][0]
+
+# 2021.04.12 回答一个网友的问题，如何打印出路径
+# 另外学到新知识：Python的内部函数，不修改全局变量可以访问全局变量
+class Solution5:
+    def __init__(self):
+        self.max_value = float('inf')
+        self.max_path = []
+
+    def minimumTotalPath(self, triangle: List[List[int]]):
+        def _dfs(level, s, path):
+            if level == row:
+                if s < self.max_value:
+                    self.max_value = s
+                    self.max_path = path
+                return
+            for i in triangle[level]:
+                _dfs(level+1, s+i, path+[i])
+
+        row = len(triangle)
+        _dfs(0, 0, [])
+        return self.max_path
+
+# 2021.04.12 动态规划解法，需要额外开辟空间，不够简洁
+class Solution6:
+    def minimumTotalPath(self, triangle: List[List[int]]):
+        path_arr = [[[]]*len(triangle[-1]) for _ in range(len(triangle))]
+        for j in range(len(triangle[-1])):
+            path_arr[-1][j] = [triangle[-1][j]]
+        for i in range(len(triangle) - 2, -1, -1):
+            for j in range(len(triangle[i])):
+                if triangle[i + 1][j] < triangle[i + 1][j + 1]:
+                    path_arr[i][j] = [triangle[i][j]] + path_arr[i + 1][j]
+                    triangle[i][j] += triangle[i + 1][j]
+                else:
+                    path_arr[i][j] = [triangle[i][j]] + path_arr[i + 1][j+1]
+                    triangle[i][j] += triangle[i + 1][j + 1]
+        return path_arr[0][0]

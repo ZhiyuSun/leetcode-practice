@@ -78,3 +78,25 @@ class Solution2:
             else:
                 res += arr2[i//2]
         return res
+
+# 2021.04.12 如鱼得水
+class Solution3:
+    def reformat(self, s: str) -> str:
+        arr1 = []
+        arr2 = []
+        res = ''
+        for i in s:
+            if i.isalpha():
+                arr1.append(i)
+            else:
+                arr2.append(i)
+        if abs(len(arr1)-len(arr2)) > 1:
+            return ''
+        if len(arr1) < len(arr2):
+            arr1, arr2 = arr2, arr1
+        for i in range(len(arr2)):
+            res += arr1[i]
+            res += arr2[i]
+        if len(arr1) > len(arr2):
+            res += arr1[-1]
+        return res
