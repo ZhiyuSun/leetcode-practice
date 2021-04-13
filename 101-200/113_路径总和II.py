@@ -67,3 +67,42 @@ class Solution2:
                 queue.append((left-cur[-1].right.val, cur + [cur[-1].right]))
         return res
             
+# 2021.04.13 小试牛刀
+class Solution3:
+    def pathSum(self, root: TreeNode, targetSum: int) -> List[List[int]]:
+        def _dfs(node, s, path):
+            if not node.left and not node.right:
+                if s == targetSum:
+                    res.append(path[:])
+                else:
+                    return
+            if node.left:
+                _dfs(node.left, s+node.left.val, path + [node.left.val])
+            if node.right:
+                _dfs(node.right, s+node.right.val, path + [node.right.val])
+
+        if not root: return []
+        res = []
+        _dfs(root, root.val, [root.val])
+        return res
+
+# 2021.04.13 官方解法，重点学一下回溯法
+class Solution4:
+    def pathSum(self, root: TreeNode, total: int) -> List[List[int]]:
+        ret = list()
+        path = list()
+        
+        def dfs(root: TreeNode, total: int):
+            if not root:
+                return
+            path.append(root.val)
+            total -= root.val
+            if not root.left and not root.right and total == 0:
+                ret.append(path[:])
+            dfs(root.left, total)
+            dfs(root.right, total)
+            path.pop()
+        
+        dfs(root, total)
+        return ret
+

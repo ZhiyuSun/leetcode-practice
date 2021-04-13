@@ -37,3 +37,21 @@ class Solution:
                 if grid[i][j] == 1:
                     ans += _dfs(i, j, grid, n, m)
         return ans
+
+
+# 2021.04.13 完全用数学法给做出来了
+class Solution1:
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+        directions = [(1,0),(-1,0),(0,1),(0,-1)]
+        count = 0
+        row, col = len(grid), len(grid[0])
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == 1:
+                    count += 4
+                    for di, dj in directions:
+                        ni, nj = i + di, j + dj
+                        if 0 <= ni < row and 0 <= nj < col:
+                            if grid[ni][nj] == 1:
+                                count -= 1
+        return count

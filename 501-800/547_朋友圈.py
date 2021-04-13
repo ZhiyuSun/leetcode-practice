@@ -62,3 +62,27 @@ class Solution1:
             i=p[i]
             p[x]=root
         return root
+
+# 2021.04.13 我自己写出了并查集
+class Solution2:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        def find(i):
+            if parent[i] != i:
+                return find(parent[i])
+            return i
+
+        def union(i, j):
+            rooti = find(i)
+            rootj = find(j)
+            parent[rooti] = rootj
+        parent = []
+        for i in range(len(isConnected)):
+            parent.append(i)
+        for i in range(len(isConnected)):
+            for j in range(len(isConnected)):
+                if isConnected[i][j] != 0:
+                    union(i, j)
+        s = set()
+        for i in parent:
+            s.add(find(i))
+        return len(s)
