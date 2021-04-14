@@ -73,3 +73,18 @@ class Solution2:
                 stack.append(ch)
         
         return not stack
+
+# 2021.04.14 如鱼得水
+class Solution3:
+    def isValid(self, s: str) -> bool:
+        dic = {'(':')','[':']','{':'}'}
+        stack = []
+        for i in s:
+            if i in dic:
+                stack.append(i)
+            else:
+                if not stack or dic[stack[-1]] != i:
+                    return False
+                else:
+                    stack.pop()
+        return len(stack) == 0
