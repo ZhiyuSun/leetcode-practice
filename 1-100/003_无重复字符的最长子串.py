@@ -91,3 +91,18 @@ class Solution3:
                         i += 1
             j += 1
         return res
+
+
+# 2021.04.15 所谓成长，就是在不断超越，我终于做出来了
+class Solution4:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        left = right = res = 0
+        visited = set()
+        while right < len(s):
+            while s[right] in visited:
+                visited.remove(s[left])
+                left += 1
+            visited.add(s[right])
+            res = max(res, right - left + 1)
+            right += 1
+        return res

@@ -1,6 +1,8 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-# https://leetcode-cn.com/problems/single-number/solution/zhi-chu-xian-yi-ci-de-shu-zi-by-leetcode/
+"""
+给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+
+"""
+from typing import List
 
 # 我的答案
 class Solution(object):
@@ -76,3 +78,11 @@ class Solution4(object):
 s = Solution()
 single_num = s.singleNumber([1, 2, 2])
 print(single_num)
+
+
+# 2021.04.15 我的解法，数学法
+class Solution5:
+    def singleNumber(self, nums: List[int]) -> int:
+        for i in range(1, len(nums)):
+            nums[i] ^= nums[i-1]
+        return nums[-1]
