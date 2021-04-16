@@ -216,3 +216,41 @@ class Solution10:
             if left > 0: queue.append((path+'(', left-1, right))
             if right > left: queue.append((path+')', left, right-1))
         return res
+
+
+# 2021.04.16 我写递归，游刃有余
+class Solution11:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def _dfs(cur, left, right):
+            if left == right == 0:
+                res.append(cur)
+                return
+            if left > 0:
+                _dfs(cur+'(', left-1, right)
+            if right > left:
+                _dfs(cur+')', left, right-1)
+
+        res = []
+        _dfs('', n, n)
+        return res
+
+
+# 2021.04.16 温习一遍回溯法
+class Solution12:
+    def generateParenthesis(self, n: int) -> List[str]:
+        ans = []
+        def backtrack(S, left, right):
+            if len(S) == 2 * n:
+                ans.append(''.join(S))
+                return
+            if left < n:
+                S.append('(')
+                backtrack(S, left+1, right)
+                S.pop()
+            if right < left:
+                S.append(')')
+                backtrack(S, left, right+1)
+                S.pop()
+
+        backtrack([], 0, 0)
+        return ans

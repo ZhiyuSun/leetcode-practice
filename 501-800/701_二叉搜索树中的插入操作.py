@@ -54,3 +54,24 @@ class Solution:
 
 # 做题心得：
 # 不是所有的树都要用递归去做
+
+import collections
+# 2021.04.16 我的解法，虽然比官方复杂了点，但至少能做出来了。
+class Solution2:
+    def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
+        if not root: return TreeNode(val)
+        queue = collections.deque()
+        queue.append(root)
+        while queue:
+            node = queue.popleft()
+            if val < node.val:
+                if node.left:
+                    queue.append(node.left)
+                else:
+                    node.left = TreeNode(val)
+            if val > node.val:
+                if node.right:
+                    queue.append(node.right)
+                else:
+                    node.right = TreeNode(val)
+        return root

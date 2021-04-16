@@ -60,3 +60,16 @@ class Solution3:
                 if s == k:
                     res = max(res, j-i+1)
         return res
+
+# 2021.04.16 前缀和+哈希表，还好没忘记
+class Solution4:
+    def maxSubArrayLen(self, nums: List[int], k: int) -> int:
+        dic = {0: -1}
+        s = res = 0
+        for i in range(len(nums)):
+            s += nums[i]
+            if s - k in dic:
+                res = max(i-dic[s-k], res)
+            if s not in dic:
+                dic[s] = i
+        return res

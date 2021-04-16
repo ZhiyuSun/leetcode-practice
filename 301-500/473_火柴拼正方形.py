@@ -157,3 +157,25 @@ class Solution4:
             return result
 
         return _dfs(0, [w,w,w,w])
+
+# 2021.04.16 一雪前耻
+class Solution5:
+    def makesquare(self, matchsticks: List[int]) -> bool:
+        s = sum(matchsticks)
+        if s % 4 != 0: return False
+        w = s // 4
+        matchsticks.sort(reverse=True)
+
+        def _dfs(index, w_arr):
+            if index == len(matchsticks):
+                return all([i == 0 for i in w_arr])
+            for i in range(len(w_arr)):
+                if i > 0 and w_arr[i] == w_arr[i-1]:
+                    continue
+                if w_arr[i] >= matchsticks[index]:
+                    w_arr[i] -= matchsticks[index]
+                    if _dfs(index+1, w_arr):
+                        return True
+                    w_arr[i] += matchsticks[index]
+            return False
+        return _dfs(0, [w,w,w,w])

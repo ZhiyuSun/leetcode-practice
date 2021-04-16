@@ -42,3 +42,19 @@ class Solution2:
                 left += 1
             ans += right - left + 1
         return ans
+
+
+# 2021.04.16 复习了一下滑动窗口的思路
+class Solution3:
+    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+        if k <= 1 or not nums: return 0
+        res = left = right = 0
+        product = 1
+        while right < len(nums):
+            product *= nums[right]
+            while product >= k:
+                product //= nums[left]
+                left += 1
+            res += right - left + 1
+            right += 1
+        return res

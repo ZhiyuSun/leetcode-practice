@@ -86,3 +86,16 @@ class Solution5:
                 count += d[acc-k]
             d[acc] += 1
         return count
+
+# 2021.04.16 温习一下
+class Solution6:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        dic = defaultdict(int)
+        dic[0] = 1
+        s = res = 0
+        for i in range(len(nums)):
+            s += nums[i]
+            if s - k in dic:
+                res += dic[s-k]
+            dic[s] += 1
+        return res
