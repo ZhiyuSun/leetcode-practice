@@ -12,6 +12,7 @@
 返回 3, 它的长度是路径 [4,2,1,3] 或者 [5,2,1,3]。
 
 """
+import collections
 # 我的笨方法
 # Definition for a binary tree node.
 class TreeNode:
@@ -81,3 +82,41 @@ class Solution2(object):
 
         depth(root)
         return self.ans - 1
+
+
+# 2021.04.17 我的做法，看起来有点复杂
+class Solution3:
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        if not root: return 0
+
+        def max_depth(node):
+            if not node: return 0
+            return max(max_depth(node.left), max_depth(node.right)) + 1
+
+        res = 0
+        queue = collections.deque()
+        queue.append(root)
+        while queue:
+            node = queue.popleft()
+            res = max(res, max_depth(node.left) + max_depth(node.right))
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        return res
+
+# 2021.04.17 温习覃超老师的写法，其实递归时可以计算最大直径，同时把最大深度给做了
+class Solution4:
+    def __init__(self):
+        self.max_depth = 0
+
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        def _max_depth(root):
+            if not root: return 0
+            l = _max_depth(root.left)
+            r = _max_depth(root.right)
+            d = l + r
+            self.max_depth = max(self.max_depth, d)
+            return max(l, r) + 1
+        _max_depth(root)
+        return self.max_depth
