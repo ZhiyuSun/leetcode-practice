@@ -23,3 +23,70 @@
 链接：https://leetcode-cn.com/problems/unique-paths-iii
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+
+from typing import List
+
+# 2021.04.18 掌握方法，困难题也不怕
+class Solution:
+    def __init__(self):
+        self.res = 0
+
+    def uniquePathsIII(self, grid: List[List[int]]) -> int:
+        direction = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+        visited = set()
+        count = 0
+        row, col = len(grid), len(grid[0])
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 0:
+                    count += 1
+
+        def _dfs(i, j):
+            if grid[i][j] == 2:
+                if len(visited) == count + 1:
+                    self.res += 1
+                return
+
+            for m, n in direction:
+                ni, nj = i + m, j + n
+                if 0 <= ni < row and 0 <= nj < col:
+                    if grid[ni][nj] in [0, 2] and (ni, nj) not in visited:
+                        visited.add((ni, nj))
+                        _dfs(ni, nj)
+                        visited.remove((ni, nj))
+
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    _dfs(i, j)
+        return self.res
+
+
+# 2021.04.18 民间大神解法，清晰易懂
+class Solution1:
+    def uniquePathsIII(self, grid: List[List[int]]) -> int:
+        R, C = len(grid), len(grid[0])
+        self.res = 0
+        sr, sc = 0, 0                     #起点 终点
+        er, ec = 0, 0
+        step = 0                        #非障碍的个数
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c] == 1:     sr, sc = r, c
+                if grid[r][c] == 2:     er, ec = r, c
+                if grid[r][c] != -1:    step += 1
+
+        def dfs_backtrace(r, c, step):
+            step -= 1
+            if r == er and c == ec:
+                if step == 0:
+                    self.res += 1
+                return
+            grid[r][c] = -1
+            for nr,nc in ((r-1,c),(r,c+1),(r+1,c),(r,c-1)):
+                if 0<=nr<R and 0<=nc<C and grid[nr][nc] != -1:
+                    dfs_backtrace(nr, nc, step)
+            grid[r][c] = 0              #回溯算法
+            
+        dfs_backtrace(sr, sc, step)
+        return self.res

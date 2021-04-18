@@ -39,3 +39,18 @@ class Solution1:
             res += bisect.bisect_right(pre, now - lower) - bisect.bisect_left(pre, now - upper)
             bisect.insort(pre, now)
         return res
+
+# 2021.04.18 还好做出来了，不然就比如以前了
+class Solution2:
+    def countRangeSum(self, nums: List[int], lower: int, upper: int) -> int:
+        dic = collections.defaultdict(int)
+        dic[0] = 1
+        s = 0
+        count = 0
+        for i in range(len(nums)):
+            s += nums[i]
+            for k, v in dic.items():
+                if lower <= s-k <= upper:
+                    count += dic[k]
+            dic[s] += 1
+        return count

@@ -56,3 +56,22 @@ class NumMatrix1:
         _sums = self.sums
 
         return _sums[row2 + 1][col2 + 1] - _sums[row1][col2 + 1] - _sums[row2 + 1][col1] + _sums[row1][col1]
+
+
+# 2021.04.18 自己做出来了，边界有点麻烦
+class NumMatrix2:
+
+    def __init__(self, matrix: List[List[int]]):
+        dp = [[0] * (len(matrix[0])+1) for _ in range(len(matrix)+1)]
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                dp[i+1][j+1] = matrix[i][j] + dp[i][j+1] + dp[i+1][j] - dp[i][j]
+        print(dp)
+        self.dp = dp
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        return self.dp[row2+1][col2+1] - self.dp[row2+1][col1] - self.dp[row1][col2+1] + self.dp[row1][col1]
+
+# Your NumMatrix object will be instantiated and called as such:
+# obj = NumMatrix(matrix)
+# param_1 = obj.sumRegion(row1,col1,row2,col2)

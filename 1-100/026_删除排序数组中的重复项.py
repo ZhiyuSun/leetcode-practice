@@ -63,3 +63,14 @@ class Solution3:
         return i + 1
 
 # 经验总结：简单来讲，双指针，看j等不等于i，如果不等于，i+1,并且获得j的值即可
+
+
+# 2021.04.18 稍微绕了一会儿，还是做出来了
+class Solution4:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 0
+        for j in range(len(nums)):
+            if j == 0 or nums[j] != nums[j-1]:
+                nums[i] = nums[j]
+                i += 1
+        return i
