@@ -283,3 +283,17 @@ class Solution9:
         used = [0]*len(nums)
         _dfs([])
         return res
+
+
+# 2021.04.19 现在的我
+class Solution10:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        def _dfs(cur, rest):
+            if not rest:
+                res.append(cur)
+            for i in range(len(rest)):
+                _dfs(cur+[rest[i]], rest[0:i] + rest[i+1:])
+
+        _dfs([], nums)
+        return res

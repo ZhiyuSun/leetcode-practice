@@ -109,3 +109,16 @@ class Solution5:
                     dp[i][j] = True
                     ans += 1
         return ans
+
+# 2021.04.19 这题居然还是不会，dp[i][j]可代表从i到j截取后的字符串
+class Solution6:
+    def countSubstrings(self, s: str) -> int:        
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        ans = 0
+        for j in range(n):
+            for i in range(0, j+1):
+                if s[i] == s[j] and (j-i<2 or dp[i+1][j-1]):
+                    dp[i][j] = True
+                    ans += 1
+        return ans

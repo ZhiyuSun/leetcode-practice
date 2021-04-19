@@ -21,6 +21,7 @@
 链接：https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+import collections
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -48,4 +49,27 @@ class Solution:
                 cur_res.reverse()
             res.append(cur_res)
             flag = not flag
+        return res
+
+
+# 2021.04.19 重温一下
+class Solution2:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root: return []
+        res = []
+        queue = collections.deque()
+        queue.append(root)
+        order = True
+        while queue:
+            tmp = []
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                tmp.append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            tmp = tmp if order else tmp[::-1]
+            res.append(tmp)
+            order = not order
         return res

@@ -61,3 +61,22 @@ class Solution1:
             end += 1
         
         return 0 if ans == n + 1 else ans
+
+
+# 2021.04.19 用新学的滑动窗口模板给做出来了
+class Solution2:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        left = right = 0
+        res = float('inf')
+        s = 0
+        while right < len(nums):
+            s += nums[right]
+            while s-nums[left] >= target:
+                s -= nums[left]
+                left += 1
+            if s >= target:
+                res = min(right-left+1, res)
+            right += 1
+        return 0 if res == float('inf') else res
+
+# 可以再参考下官方的解答，官方完全使用了我的模板，而且更优雅
