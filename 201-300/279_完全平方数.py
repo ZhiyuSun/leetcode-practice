@@ -63,3 +63,16 @@ class Solutiongf:
                         next_queue.add(remainder - square_num)
             queue = next_queue
         return level
+
+# 2021.04.20 参考题解，动态规划解法
+class Solution2:
+    def numSquares(self, n: int) -> int:
+        dp = [0] * (n+1)
+        for i in range(1, n+1):
+            dp[i] = i
+            j = 1
+            while i - j * j >= 0:
+                dp[i] = min(dp[i], dp[i-j*j]+1)
+                j += 1
+        return dp[-1]
+
