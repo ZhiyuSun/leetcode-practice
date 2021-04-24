@@ -106,3 +106,21 @@ class Solution4:
             res = max(res, right - left + 1)
             right += 1
         return res
+
+
+# 2021.04.24 我还是非常欣赏我4.15日的做法，现在的做法都没当时的好
+class Solution5:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        i, j, res = 0, 0, 0
+        seen = set()
+        while j < len(s):
+            if s[j] not in seen:
+                seen.add(s[j])
+            else:
+                while s[i] != s[j]:
+                    seen.remove(s[i])
+                    i += 1
+                i += 1
+            res = max(res, j-i+1)
+            j += 1
+        return res

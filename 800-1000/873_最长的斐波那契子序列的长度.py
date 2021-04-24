@@ -68,3 +68,39 @@ class Solution2:
                     dp[(A[j],A[i])] = dp.get((diff,A[j]),2)+1
                     res = max(res,dp[(A[j],A[i])])
         return res
+
+
+# 2021.04.24 重新学习这道题，官方解法1，暴力法
+class Solution3:
+    def lenLongestFibSubseq(self, arr: List[int]) -> int:
+        S = set(arr)
+        ans = 0
+        for i in range(len(arr)):
+            for j in range(i+1, len(arr)):
+                """
+                With the starting pair (A[i], A[j]),
+                y represents the future expected value in
+                the fibonacci subsequence, and x represents
+                the most current value found.
+                """
+                x, y = arr[j], arr[i] + arr[j]
+                length = 2
+                while y in S:
+                    x, y = y, x + y
+                    length += 1
+                ans = max(ans, length)
+        return ans if ans >= 3 else 0
+
+# 2021.04.24 动态规划民间解法，利用最长子序列的思路，值得研究学习
+class Solution4:
+    def lenLongestFibSubseq(self, A: List[int]) -> int:
+        dp = {}
+        res = 0
+        tempA = set(A)
+        for i in range(1,len(A)):
+            for j in range(i):
+                diff = A[i]-A[j]
+                if diff <A[j] and diff in tempA:
+                    dp[(A[j],A[i])] = dp.get((diff,A[j]),2)+1
+                    res = max(res,dp[(A[j],A[i])])
+        return res
