@@ -27,3 +27,25 @@ class Solution2:
             res *=3
             n -= 3
         return res * n
+
+
+# 2021.04.25 我的解法，自己又写出来了，但是居然还跟上次写的不一样
+class Solution3:
+    def cuttingRope(self, n: int) -> int:
+        if n == 2: return 1
+        dp = [0] * (n+1)
+        dp[1] = 1
+        dp[2] = 1
+        for i in range(3, n+1):
+            for j in range(1, i):
+                dp[i] = max(dp[i], dp[i-j] * j, (i-j) * j)
+        return dp[-1] % 1000000007
+
+# 2021.04.25 重温官方解法，更精简一点
+class Solution4:
+    def cuttingRope(self, n: int) -> int:
+        dp = [0] * (n + 1)
+        for i in range(2, n + 1):
+            for j in range(i):
+                dp[i] = max(dp[i], j * (i - j), j * dp[i - j])
+        return dp[n] % 1000000007

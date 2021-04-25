@@ -22,3 +22,15 @@ class Solution:
                 ans += int((bit_a + bit_b) == 0)
         return ans
 
+
+# 2021.04.15 温习一下解法，要熟练移位的位运算操作
+class Solution1:
+    def minFlips(self, a: int, b: int, c: int) -> int:
+        ans = 0
+        for i in range(32):
+            bit_a, bit_b, bit_c = (a >> i) & 1, (b >> i) & 1, (c >> i) & 1
+            if bit_c == 0:
+                ans += bit_a + bit_b
+            else:
+                ans += int((bit_a + bit_b) == 0)
+        return ans

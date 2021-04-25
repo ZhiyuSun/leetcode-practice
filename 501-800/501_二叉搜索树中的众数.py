@@ -44,3 +44,29 @@ class Solution:
             if val>=maxVal:
                 ans.append(item)
         return ans
+
+
+# 2021.04.25 在中序遍历的过程中找结果
+class Solution1:
+    def findMode(self, root: TreeNode) -> List[int]:
+        ans=[]
+        most=0
+        last=None
+        cnt=0
+
+        def inorder(node):
+            if not node: return 
+            nonlocal ans,most,last,cnt
+            if node.left: inorder(node.left)
+            if node.val==last:
+                cnt+=1
+            else: cnt=1
+            if cnt==most: ans.append(node.val)
+            elif cnt>most:
+                most=cnt
+                ans=[node.val]
+            last=node.val
+            if node.right: inorder(node.right)
+
+        inorder(root)
+        return ans
