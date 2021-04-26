@@ -36,7 +36,7 @@
 链接：https://leetcode-cn.com/problems/minimum-cost-for-tickets
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
-# 2020.11.12 超了别人大神的做法，太精彩了，简单易懂
+# 2020.11.12 抄了别人大神的做法，太精彩了，简单易懂
 from typing import List
 class Solution:
     def mincostTickets(self, days: List[int], costs: List[int]) -> int:

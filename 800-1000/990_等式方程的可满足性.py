@@ -15,3 +15,36 @@
 链接：https://leetcode-cn.com/problems/satisfiability-of-equality-equations
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+from typing import List
+
+# 2021.04.26 直奔题解，并查集，精彩了
+class Solution:
+
+    class UnionFind:
+        def __init__(self):
+            self.parent = list(range(26))
+        
+        def find(self, index):
+            if index == self.parent[index]:
+                return index
+            self.parent[index] = self.find(self.parent[index])
+            return self.parent[index]
+        
+        def union(self, index1, index2):
+            self.parent[self.find(index1)] = self.find(index2)
+
+
+    def equationsPossible(self, equations: List[str]) -> bool:
+        uf = Solution.UnionFind()
+        for st in equations:
+            if st[1] == "=":
+                index1 = ord(st[0]) - ord("a")
+                index2 = ord(st[3]) - ord("a")
+                uf.union(index1, index2)
+        for st in equations:
+            if st[1] == "!":
+                index1 = ord(st[0]) - ord("a")
+                index2 = ord(st[3]) - ord("a")
+                if uf.find(index1) == uf.find(index2):
+                    return False
+        return True

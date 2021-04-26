@@ -39,3 +39,27 @@ class Solution1:
             pos -= 1
         
         return ans
+
+# 2021.04.26 犯规法
+class Solution2:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        return sorted([i*i for i in nums])
+
+
+# 2021.04.26 数组要记得用双指针
+class Solution3:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        ans = [0] * n
+        
+        i, j, pos = 0, n - 1, n - 1
+        while i <= j:
+            if abs(nums[i]) > abs(nums[j]):
+                ans[pos] = nums[i] * nums[i]
+                i += 1
+            else:
+                ans[pos] = nums[j] * nums[j]
+                j -= 1
+            pos -= 1
+        
+        return ans

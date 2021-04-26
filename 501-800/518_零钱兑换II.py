@@ -42,3 +42,14 @@ class Solution:
 
 # 小结：
 # 一开始想用回溯，没想到这还是动态规划
+
+# 2021.04.26 这题其实有点难的，我现在还是不会
+class Solution1:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = [0] * (amount + 1)
+        dp[0] = 1
+        
+        for coin in coins:
+            for x in range(coin, amount + 1):
+                dp[x] += dp[x - coin]
+        return dp[amount]

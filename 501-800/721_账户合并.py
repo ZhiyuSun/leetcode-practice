@@ -20,3 +20,46 @@ Explanation:
 链接：https://leetcode-cn.com/problems/accounts-merge
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+import collections
+from typing import List
+
+# 2021.04.26 并查集的题目，直奔题解
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+
+    def union(self, index1: int, index2: int):
+        self.parent[self.find(index2)] = self.find(index1)
+
+    def find(self, index: int) -> int:
+        if self.parent[index] != index:
+            self.parent[index] = self.find(self.parent[index])
+        return self.parent[index]
+
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        emailToIndex = dict()
+        emailToName = dict()
+
+        for account in accounts:
+            name = account[0]
+            for email in account[1:]:
+                if email not in emailToIndex:
+                    emailToIndex[email] = len(emailToIndex)
+                    emailToName[email] = name
+        
+        uf = UnionFind(len(emailToIndex))
+        for account in accounts:
+            firstIndex = emailToIndex[account[1]]
+            for email in account[2:]:
+                uf.union(firstIndex, emailToIndex[email])
+        
+        indexToEmails = collections.defaultdict(list)
+        for email, index in emailToIndex.items():
+            index = uf.find(index)
+            indexToEmails[index].append(email)
+        
+        ans = list()
+        for emails in indexToEmails.values():
+            ans.append([emailToName[emails[0]]] + sorted(emails))
+        return ans

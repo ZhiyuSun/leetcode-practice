@@ -100,3 +100,13 @@ class Solution6:
                 if nums[j] > nums[i]:
                     dp[j] = max(dp[j], dp[i] + 1)
         return max(dp)
+
+# 2021.04.26 瞎猫碰上死耗子
+class Solution7:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = [1] * len(nums)
+        for i in range(len(nums)):
+            for j in range(i, len(nums)):
+                if nums[j] > nums[i]:
+                    dp[j] = max(dp[j], dp[i]+1)
+        return max(dp)

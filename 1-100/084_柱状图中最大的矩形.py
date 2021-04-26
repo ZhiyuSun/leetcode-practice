@@ -40,3 +40,6 @@ class Solution:
         
         ans = max((right[i] - left[i] - 1) * heights[i] for i in range(n)) if n > 0 else 0
         return ans
+
+
+# 2021.04.26 还是不会，先继续跳过

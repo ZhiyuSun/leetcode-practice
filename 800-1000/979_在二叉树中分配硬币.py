@@ -9,3 +9,23 @@
 链接：https://leetcode-cn.com/problems/distribute-coins-in-binary-tree
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+# 2021.04.26 直奔题解，是我看不懂的题
+class Solution(object):
+    def distributeCoins(self, root):
+        self.ans = 0
+
+        def dfs(node):
+            if not node: return 0
+            L, R = dfs(node.left), dfs(node.right)
+            self.ans += abs(L) + abs(R)
+            return node.val + L + R - 1
+
+        dfs(root)
+        return self.ans

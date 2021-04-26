@@ -15,3 +15,41 @@
 链接：https://leetcode-cn.com/problems/sort-array-by-parity
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+from typing import List
+
+# 2021.04.26 我的解法，活用lambda表达式
+class Solution:
+    def sortArrayByParity(self, A: List[int]) -> List[int]:
+        return sorted(A, key=lambda x: x % 2)
+
+# 2021.04.26 官方解法，两边扫描
+class Solution1:
+    def sortArrayByParity(self, A: List[int]) -> List[int]:
+        return ([x for x in A if x % 2 == 0] +
+                [x for x in A if x % 2 == 1])
+
+# 2021.04.26 官方双指针
+class Solution2:
+    def sortArrayByParity(self, A: List[int]) -> List[int]:
+        i, j = 0, len(A) - 1
+        while i < j:
+            if A[i] % 2 > A[j] % 2:
+                A[i], A[j] = A[j], A[i]
+
+            if A[i] % 2 == 0: i += 1
+            if A[j] % 2 == 1: j -= 1
+
+        return A
+
+# 2021.04.26 我的双指针，似乎更复杂了
+class Solution3:
+    def sortArrayByParity(self, A: List[int]) -> List[int]:
+        i, j = 0, len(A) - 1
+        while 0 <= i < j < len(A):
+            while A[i] % 2 == 0 and i < len(A)-1:
+                i += 1
+            while A[j] % 2 == 1 and j > 0:
+                j -= 1
+            if 0 <= i < j < len(A):
+                A[i], A[j] = A[j], A[i]
+        return A

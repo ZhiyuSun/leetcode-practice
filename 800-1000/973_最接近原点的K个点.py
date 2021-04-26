@@ -44,3 +44,21 @@ class Solution1:
         
         ans = [points[identity] for (_, identity) in q]
         return ans
+
+
+# 2021.04.26 温习一下
+class Solution2:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        q = [(-x ** 2 - y ** 2, i) for i, (x, y) in enumerate(points[:k])]
+        heapq.heapify(q)
+        
+        n = len(points)
+        for i in range(k, n):
+            x, y = points[i]
+            dist = -x ** 2 - y ** 2
+            if q[0][0] < dist:
+                heapq.heappop(q)
+                heapq.heappush(q, (dist, i))
+        
+        ans = [points[identity] for (_, identity) in q]
+        return ans
