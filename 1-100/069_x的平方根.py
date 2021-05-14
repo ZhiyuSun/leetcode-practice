@@ -45,3 +45,41 @@ class Solution1:
                 r = mid - 1
         return ans
 
+
+# 2021.04.29 先找到临界值，再做判断也可以
+class Solution2:
+    def mySqrt(self, x: int) -> int:
+        left, right = 0, x
+        while left <= right: 
+            mid = (left + right) // 2 
+            if mid * mid == x: 
+                return mid
+            elif mid * mid < x: 
+                left = mid + 1 
+            else: 
+                right = mid - 1
+        if left * left < x < (left+1)*(left+1):
+            return left
+        else:
+            return left - 1
+
+
+# 2021.04.29 我在面试时的做法，如果初始边界值这么设，就没问题了
+# 很可惜，听天由命了
+class Solution3:
+    def mySqrt(self, x: int) -> int:
+        if x == 1: return 1
+        i, j = 0, x
+        while i < j:
+            # print(i, j)
+            if i == j - 1:
+                return i
+            mid = i + (j-i) // 2
+            prod = mid * mid
+            if prod == x:
+                return mid
+            elif prod > x:
+                j = mid
+            else:
+                i = mid
+        return i
