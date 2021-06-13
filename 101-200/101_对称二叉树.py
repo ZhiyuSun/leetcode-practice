@@ -83,3 +83,15 @@ class Solution3:
         return compare_nodes(root.left, root.right)
 
 # 这道题也可以用BFS，不过要注意入队列的顺序
+
+# 2021.06.13 恢复很快
+class Solution4:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root: return True
+        def compare(node1, node2):
+            if not node1 and not node2:
+                return True
+            if not node1 or not node2:
+                return False
+            return node1.val == node2.val and compare(node1.left, node2.right) and compare(node1.right, node2.left)
+        return compare(root.left, root.right)

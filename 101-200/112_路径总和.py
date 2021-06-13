@@ -53,3 +53,15 @@ class Solution1:
         if not root: return False
 
         return dfs(root, root.val)
+
+# 2021.06.13 我的解法，开始恢复训练
+class Solution2:
+    def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
+        if not root: return False
+        if not root.left and not root.right:
+             return root.val == targetSum
+        if not root.left:
+            return self.hasPathSum(root.right, targetSum-root.val)
+        if not root.right:
+            return self.hasPathSum(root.left, targetSum-root.val)
+        return self.hasPathSum(root.right, targetSum-root.val) or self.hasPathSum(root.left, targetSum-root.val)
