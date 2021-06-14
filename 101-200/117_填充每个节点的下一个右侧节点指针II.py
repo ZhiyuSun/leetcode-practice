@@ -46,20 +46,20 @@ class Solution1:
     def connect(self, root: 'Node') -> 'Node':
         first = root
         while first:
-        head = None
-        tail = Node()
-        cur = first
-        while cur:
-            if cur.left:
-                if not head:
-                    head = cur.left
-                tail.next = cur.left
-                tail = tail.next
-            if cur.right:
-                if not head:
-                    head = cur.right
-                tail.next = cur.right
-                tail = tail.next
-            cur = cur.next
-        first = head
+            head = None
+            tail = Node()
+            cur = first
+            while cur:
+                if cur.left:
+                    if not head:
+                        head = cur.left
+                    tail.next = cur.left
+                    tail = tail.next
+                if cur.right:
+                    if not head:
+                        head = cur.right
+                    tail.next = cur.right
+                    tail = tail.next
+                cur = cur.next
+            first = head
         return root

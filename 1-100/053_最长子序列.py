@@ -50,3 +50,10 @@ class Solution5:
         for i in range(1, len(nums)):
             nums[i] += max(nums[i - 1], 0)
         return max(nums)
+
+# 2021.06.14 如果做不出来想鲨了自己
+class Solution6:
+    def maxSubArray(self, nums: List[int]) -> int:
+        for i in range(1, len(nums)):
+            nums[i] = max(nums[i], nums[i]+nums[i-1])
+        return max(nums)

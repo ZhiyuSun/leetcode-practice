@@ -110,3 +110,15 @@ class Solution7:
                 if nums[j] > nums[i]:
                     dp[j] = max(dp[j], dp[i]+1)
         return max(dp)
+
+# 2021.06.14 我tm真是个垃圾，做了8遍的题还是不会，不配当程序员
+# 参考了下过去的题解，做出来了
+# 外层i代表这次要针对哪个数，内层j代表正式的dp循环
+class Solution8:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = [1] * len(nums)
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[j]+1, dp[i])
+        return max(dp)
