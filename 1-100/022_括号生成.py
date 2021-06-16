@@ -211,7 +211,7 @@ class Solution10:
         while queue:
             path, left, right = queue.pop(0)
             if left == right == 0:
-                res.append(path[:])
+                res.append(path)
                 continue
             if left > 0: queue.append((path+'(', left-1, right))
             if right > left: queue.append((path+')', left, right-1))
@@ -254,3 +254,18 @@ class Solution12:
 
         backtrack([], 0, 0)
         return ans
+
+# 2021.06.16 熟能生巧
+class Solution13:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
+        def _dfs(left, right, path):
+            if left == right == 0:
+                res.append(path)
+                return
+            if left > 0:
+                _dfs(left-1, right, path + '(')
+            if right > left:
+                _dfs(left, right-1, path + ')')
+        _dfs(n, n, '')
+        return res

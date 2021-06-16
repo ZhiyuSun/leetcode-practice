@@ -119,3 +119,18 @@ class Solution5:
         res = []
         _dfs([], 1)
         return res
+
+# 2021.06.16 三个月没写，垃圾写法
+class Solution6:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        def _dfs(cur, arr):
+            if len(cur) == k:
+                res.append(cur)
+                return
+            for i in range(len(arr)):
+                _dfs(cur + [arr[i]], arr[i+1:])
+
+        arr = [i + 1 for i in range(n)]
+        res = []
+        _dfs([], arr)
+        return res
