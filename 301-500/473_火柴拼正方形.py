@@ -179,3 +179,32 @@ class Solution5:
                     w_arr[i] += matchsticks[index]
             return False
         return _dfs(0, [w,w,w,w])
+
+class Solution6:
+    def makesquare(self, nums: List[int]) -> bool:
+        if not nums: return False
+        s = sum(nums)
+        # 如果周长不能被4整除，直接返回False
+        if s % 4 != 0: return False
+        w = s // 4
+        # 先将数组从大到小排序，这里利用了贪心的思路，找到解的速度会快很多
+        nums.sort(reverse=True)
+
+        def _dfs(index, w_arr):
+            # 数组用完了，边长数组必须都为0，否则返回False
+            if index == len(nums):
+                return all([i==0 for i in w_arr])
+            result = False
+            for j in range(len(w_arr)):
+                # 这里用到了剪枝，如果w_arr连续两个值相同，则可以跳过
+                if j > 0 and w_arr[j] == w_arr[j-1]:
+                    continue
+                # 依次尝试去扣除nums[index]
+                if w_arr[j] >= nums[index]:
+                    w_arr[j] -= nums[index]
+                    if _dfs(index+1, w_arr):
+                        return True
+                    w_arr[j] += nums[index]
+            return result
+
+        return _dfs(0, [w,w,w,w])

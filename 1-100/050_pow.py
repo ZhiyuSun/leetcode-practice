@@ -57,3 +57,18 @@ class Solution3:
             return ans
         
         return quickMul(n) if n >= 0 else 1.0 / quickMul(-n)
+
+# 2021.06.17 重温这道题，还是不会，递归法
+class Solution4:
+    def myPow(self, x: float, n: int) -> float:
+        def quickMul(N):
+            ans = 1.0
+            x_contribute = x
+            while N > 0:
+                if N % 2 == 1:
+                    ans *= x_contribute
+                x_contribute *= x_contribute
+                N //= 2
+            return ans
+        
+        return quickMul(n) if n >= 0 else 1.0 / quickMul(-n)

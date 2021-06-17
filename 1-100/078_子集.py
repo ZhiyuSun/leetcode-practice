@@ -105,3 +105,19 @@ class Solution5:
 
         helper(0, [])
         return res
+
+# 2021.06.17 经典回溯问题，没想到我的解法已经比之前要好了
+class Solution6:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        def _dfs(cur, index):
+            if index == len(nums):
+                res.append(cur[:])
+                return
+            cur.append(nums[index])
+            _dfs(cur, index+1)
+            cur.pop()
+            _dfs(cur, index+1)
+
+        res = []
+        _dfs([], 0)
+        return res

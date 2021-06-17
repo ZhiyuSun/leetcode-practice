@@ -102,3 +102,18 @@ class Solution6:
     def majorityElement(self, nums: List[int]) -> int:
         nums.sort()
         return nums[len(nums)//2]
+
+# 2021.06.17 温习一下
+class Solution7:
+    def majorityElement(self, nums: List[int]) -> int:
+        res = nums[0]
+        count = 0
+        for i in nums:
+            if count == 0:
+                res = i
+            if i == res:
+                count += 1
+            else:
+                count -= 1
+
+        return res
