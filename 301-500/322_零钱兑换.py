@@ -73,3 +73,14 @@ class Solution5:
                 if i - c >= 0:
                     dp[i] = min(dp[i-c]+1, dp[i])
         return -1 if dp[-1] == float("inf") else dp[-1]
+
+# 2021.06.18 重温一下
+class Solution6:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        MAX = float('inf')
+        dp = [0] + [MAX] * amount
+        for i in range(1, amount+1):
+            for c in coins:
+                if i-c>=0:
+                    dp[i] = min(dp[i-c]+1, dp[i])
+        return -1 if dp[amount] == MAX else dp[amount]

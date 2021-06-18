@@ -58,3 +58,26 @@ class Solution4:
             if max_d >= len(nums) - 1:
                 return True
             max_d = max(max_d, nums[i] + i)
+
+
+# 2021.06.18 我做出来了，但是不够优雅
+class Solution5:
+    def canJump(self, nums: List[int]) -> bool:
+        max_reach = 0
+        for i in range(len(nums)):
+            if i > max_reach:
+                return False
+            max_reach = max(max_reach, i + nums[i])
+            if max_reach >= len(nums) - 1:
+                return True
+
+# 2021.06.18 回顾官方解法，从前往后
+class Solution6:
+    def canJump(self, nums: List[int]) -> bool:
+        n, rightmost = len(nums), 0
+        for i in range(n):
+            if i <= rightmost:
+                rightmost = max(rightmost, i + nums[i])
+                if rightmost >= n - 1:
+                    return True
+        return False
