@@ -59,5 +59,33 @@ class Solution:
         
         return count
 
-# 55. 跳跃游戏
+# 55. 跳跃游戏、
+class Solution55:
+    def canJump(self, nums: List[int]) -> bool:
+        n, rightmost = len(nums), 0
+        for i in range(n):
+            if i <= rightmost:
+                rightmost = max(rightmost, i + nums[i])
+                if rightmost >= n - 1:
+                    return True
+        return False
+
+    def canJump1(self, nums: List[int]) -> bool:
+        if not nums: return False
+        end_reachable = len(nums) - 1
+        for i in range(len(nums)-1, -1 , -1):
+            if nums[i] + i >= end_reachable:
+                end_reachable = i
+        return end_reachable == 0
+
 # 45. 跳跃游戏 II
+class Solution45:
+    def jump(self, nums: List[int]) -> int:
+        size = len(nums)
+        max_position, end, step = 0, 0, 0
+        for i in range(size-1):
+            max_position = max(max_position, i+nums[i])
+            if i == end:
+                end = max_position
+                step += 1
+        return step
