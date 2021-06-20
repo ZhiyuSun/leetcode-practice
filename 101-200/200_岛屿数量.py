@@ -331,3 +331,23 @@ class UnionFind2:
         if rootx != rooty:
             self.parent[rootx] = rooty
             self.count -= 1
+
+# 2021.06.20 时隔几个月，重新来过
+class Solution11:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        def _dfs(i, j):
+            grid[i][j] = "0"
+            for dx, dy in directions:
+                n_i, n_j = i + dx, j + dy
+                if 0 <= n_i < row and 0 <= n_j < col and grid[n_i][n_j] == "1":
+                    _dfs(n_i, n_j)
+            
+        count = 0
+        row, col = len(grid), len(grid[0])
+        directions = [[-1,0],[1,0],[0,1],[0,-1]]
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == "1":
+                    count += 1
+                    _dfs(i, j)
+        return count
