@@ -86,3 +86,8 @@ class Solution5:
         for i in range(1, len(nums)):
             nums[i] ^= nums[i-1]
         return nums[-1]
+    
+from functools import reduce
+class Solution6:
+    def singleNumber(self, nums: List[int]) -> int:
+        return reduce(lambda x, y: x ^ y, nums)
