@@ -124,3 +124,17 @@ class Solution5:
             res = max(res, j-i+1)
             j += 1
         return res
+
+# 2021.06.26 温习一下
+class Solution6:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        left = right = res = 0
+        window_set = set()
+        while right < len(s):
+            while s[right] in window_set:
+                window_set.remove(s[left])
+                left += 1
+            window_set.add(s[right])
+            res = max(res, right - left + 1)
+            right += 1
+        return res

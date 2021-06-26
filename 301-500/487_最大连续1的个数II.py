@@ -14,6 +14,8 @@
 """
 import collections
 
+from typing import List
+
 # 2021.04.15 请叫我双指针的神
 class Solution:
     def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
@@ -25,6 +27,21 @@ class Solution:
                 dic[s[left]] -= 1
                 if dic[s[left]] == 0:
                     del dic[s[left]]
+                left += 1
+            res = max(res, right-left+1)
+            right += 1
+        return res
+
+# 2021.06.26 我的解法，其实现在有点遗忘了
+class Solution2:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        left = right = res = count = 0
+        while right < len(nums):
+            if nums[right] == 0:
+                count += 1
+            while count > 1:
+                if nums[left] == 0:
+                    count -= 1
                 left += 1
             res = max(res, right-left+1)
             right += 1
