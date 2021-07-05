@@ -62,3 +62,9 @@ class Solution2:
         
         ans = [points[identity] for (_, identity) in q]
         return ans
+
+# 2021.07.05 普通的排序题
+class Solution3:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        points.sort(key=lambda x: x[0]*x[0] + x[1]*x[1])
+        return points[:k]
