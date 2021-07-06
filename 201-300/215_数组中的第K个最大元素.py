@@ -112,3 +112,15 @@ class Solution4:
                 heapq.heappop(hp)
                 heapq.heappush(hp, nums[i])
         return hp[0]
+
+# 2021.07.06 
+# 我也太牛了，居然还记得堆的各种操作
+class Solution5:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        arr = nums[:k]
+        heapq.heapify(arr)
+        for i in range(k, len(nums)):
+            if arr[0] < nums[i]:
+                heapq.heappop(arr)
+                heapq.heappush(arr, nums[i])
+        return arr[0]
