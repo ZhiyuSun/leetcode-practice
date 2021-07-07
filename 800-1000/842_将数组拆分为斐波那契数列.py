@@ -79,3 +79,38 @@ class Solution1:
                     res.pop()
             return False
         return res if backtrack(0) else []
+
+
+# 2021.07.07 这题不知道为什么没在leetcode上提交，重温了一下网友的做法，还是挺有挑战的
+class Solution2:
+    def splitIntoFibonacci(self, S: str) -> List[int]:
+        m = 2 ** 31 - 1
+        res = []
+        n = len(S)
+        def backtrack(pos):
+            # 基线条件
+            if pos == n:
+                return len(res) > 2
+            # 递归条件
+            s = 0
+            for i in range(pos, n):
+                s = s * 10 + int(S[i])
+                # 剪枝条件 1：当前项不能大于最大值
+                if s > m:
+                    break
+                # 剪枝条件 2：当前项大于前两项之和，没有继续计算的必要
+                if len(res) > 2 and s > res[-1] + res[-2]:
+                    break
+                # 剪枝条件 3：当前项以 0 开始，且不是 0 本身
+                if S[pos] == '0' and i > pos:
+                    break
+                if len(res) < 2 or res[-1] + res[-2] == s:
+                    # 保存现场
+                    res.append(s)
+                    # 回溯
+                    if backtrack(i + 1):
+                        return True
+                    # 恢复现场
+                    res.pop()
+            return False
+        return res if backtrack(0) else []

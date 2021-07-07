@@ -38,3 +38,34 @@ class Solution1:
                 hi = mi
         return lo
 
+# 2021.07.07 自己倒腾了一个二分法
+class Solution2:
+    def peakIndexInMountainArray(self, arr: List[int]) -> int:
+        i, j = 0, len(arr) - 1
+        while i < j:
+            mid = (i+j) // 2
+            if arr[mid-1] < arr[mid] > arr[mid+1]:
+                return mid
+            if arr[mid-1] < arr[mid] < arr[mid+1]:
+                i = mid
+            if arr[mid-1] > arr[mid] > arr[mid+1]:
+                j = mid
+        return None
+
+# 2021.07.07 官方解法
+# 注意一下这才是标准的二分，判断哪里用=，左右指针+1-1
+
+class Solution3:
+    def peakIndexInMountainArray(self, arr: List[int]) -> int:
+        n = len(arr)
+        left, right, ans = 1, n - 2, 0
+
+        while left <= right:
+            mid = (left + right) // 2
+            if arr[mid] > arr[mid + 1]:
+                ans = mid
+                right = mid - 1
+            else:
+                left = mid + 1
+        
+        return ans

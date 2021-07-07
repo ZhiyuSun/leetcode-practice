@@ -92,3 +92,32 @@ class Solution2:
                 return dfs(root.left, total) + dfs(root.right, total)
 
         return dfs(root, 0)
+
+# 2021.07.07 我的广度优先，差点做不出来
+class Solution3:
+    def sumNumbers(self, root: TreeNode) -> int:
+        queue = [(root, str(root.val))]
+        res = 0
+        while queue:
+            node, val = queue.pop(0)
+            if not node.left and not node.right:
+                res += int(val)
+            if node.left:
+                queue.append((node.left, val + str(node.left.val)))
+            if node.right:
+                queue.append((node.right, val + str(node.right.val)))
+        return res
+
+# 2021.07.07 重温下深度优先
+class Solution4:
+    def sumNumbers(self, root: TreeNode) -> int:
+        def dfs(root: TreeNode, prevTotal: int) -> int:
+            if not root:
+                return 0
+            total = prevTotal * 10 + root.val
+            if not root.left and not root.right:
+                return total
+            else:
+                return dfs(root.left, total) + dfs(root.right, total)
+
+        return dfs(root, 0)
